@@ -18,7 +18,7 @@ interface Particle {
   targetIdx: number;
   sourceIdx: number;
   progress: number;
-  speed: number;
+  duration: number;
   size: number;
   opacity: number;
   phase: number;
@@ -335,13 +335,14 @@ const AgentNetworkCanvas = () => {
       // --- Update & draw particles ---
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
-        p.progress += p.speed * dt * 0.1;
+        const deltaTime = 0.016 * dt;
+        p.progress += deltaTime / p.duration;
 
         if (p.progress >= 1) {
           if (p.phase === 0) {
             p.phase = 1;
             p.progress = 0;
-            p.speed = 0.0000004 + Math.random() * 0.0000006;
+            p.duration = 30 + Math.random() * 20;
             p.sourceIdx = p.targetIdx;
           } else {
             // Particle arrived at core — trigger governance ring pulse
@@ -648,7 +649,7 @@ function makeParticle(w: number, h: number, nodes: AgentNode[]): Particle {
     targetIdx,
     sourceIdx: targetIdx,
     progress: Math.random(),
-    speed: 0.0000003 + Math.random() * 0.0000005,
+    duration: 40 + Math.random() * 30,
     size: 1 + Math.random() * 1.5,
     opacity: 0.4 + Math.random() * 0.4,
     phase: 0,
