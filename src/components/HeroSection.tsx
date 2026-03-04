@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import { Link } from "react-router-dom";
-import NeuralNetwork from "./NeuralNetwork";
+import AgentNetworkCanvas from "./AgentNetworkCanvas";
 
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Neural network background */}
-      <NeuralNetwork />
+      <AgentNetworkCanvas />
       <div className="absolute inset-0 gradient-mesh-strong" />
 
       {/* Radial gradient overlay for depth */}
