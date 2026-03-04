@@ -6,7 +6,7 @@ import ChatDemoSection from "@/components/ChatDemoSection";
 import AdaptsSection from "@/components/AdaptsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import TrustSection from "@/components/TrustSection";
-import NewsSection from "@/components/NewsSection";
+
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
@@ -21,7 +21,7 @@ const Index = () => {
       <AdaptsSection />
       <TestimonialsSection />
       <TrustSection />
-      <NewsSection />
+      
       <CTASection />
       <Footer />
     </div>
