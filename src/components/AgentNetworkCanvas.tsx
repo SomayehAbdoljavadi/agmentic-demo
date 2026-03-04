@@ -18,7 +18,7 @@ interface Particle {
   targetIdx: number;
   sourceIdx: number;
   progress: number;
-  duration: number;
+  speed: number;
   size: number;
   opacity: number;
   phase: number;
@@ -157,7 +157,7 @@ const AgentNetworkCanvas = () => {
     }
 
     const particles: Particle[] = [];
-    for (let i = 0; i < 70; i++) {
+    for (let i = 0; i < 40; i++) {
       particles.push(makeParticle(w, h, nodes));
     }
     particlesRef.current = particles;
@@ -260,7 +260,7 @@ const AgentNetworkCanvas = () => {
             speed: 0.01 + Math.random() * 0.02,
           });
         }
-        cluster.nextPulseTime = 0.08 + Math.random() * 0.5;
+        cluster.nextPulseTime = 0.15 + Math.random() * 0.8;
       }
 
       // Draw neurons
@@ -335,14 +335,13 @@ const AgentNetworkCanvas = () => {
       // --- Update & draw particles ---
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
-        const deltaTime = 0.016 * dt;
-        p.progress += deltaTime / p.duration;
+        p.progress += p.speed * dt;
 
         if (p.progress >= 1) {
           if (p.phase === 0) {
             p.phase = 1;
             p.progress = 0;
-            p.duration = 30 + Math.random() * 20;
+            p.speed = 0.003 + Math.random() * 0.004;
             p.sourceIdx = p.targetIdx;
           } else {
             // Particle arrived at core — trigger governance ring pulse
@@ -356,13 +355,10 @@ const AgentNetworkCanvas = () => {
 
         if (p.phase === 0) {
           const node = nodes[p.targetIdx];
-          // Randomize spawn angle for directional diversity
-          const baseAngle = -Math.PI / 2 + (p.targetIdx / nodes.length) * Math.PI * 2 + (ANGLE_OFFSETS[p.targetIdx] || 0);
-          const angleSpread = (Math.random() - 0.5) * Math.PI * 1.2; // ±108° variation
-          const spawnAngle = baseAngle + angleSpread;
-          const spawnDist = Math.max(w, h) * (0.5 + Math.random() * 0.3);
-          sx = cx + Math.cos(spawnAngle) * spawnDist;
-          sy = cy + Math.sin(spawnAngle) * spawnDist;
+          const angle = -Math.PI / 2 + (p.targetIdx / nodes.length) * Math.PI * 2 + (ANGLE_OFFSETS[p.targetIdx] || 0);
+          const spawnDist = Math.max(w, h) * 0.6;
+          sx = cx + Math.cos(angle) * spawnDist;
+          sy = cy + Math.sin(angle) * spawnDist;
           ex = node.x;
           ey = node.y;
         } else {
@@ -374,8 +370,7 @@ const AgentNetworkCanvas = () => {
         }
 
         const prog = p.progress;
-        // Smooth gentle easing — slow start, steady drift, soft arrival
-        const easedProg = prog * prog * (3 - 2 * prog); // smoothstep
+        const easedProg = prog < 0.5 ? 2 * prog * prog : 1 - Math.pow(-2 * prog + 2, 2) / 2;
         p.x = sx + (ex - sx) * easedProg;
         p.y = sy + (ey - sy) * easedProg;
 
@@ -649,7 +644,7 @@ function makeParticle(w: number, h: number, nodes: AgentNode[]): Particle {
     targetIdx,
     sourceIdx: targetIdx,
     progress: Math.random(),
-    duration: 40 + Math.random() * 30,
+    speed: 0.002 + Math.random() * 0.004,
     size: 1 + Math.random() * 1.5,
     opacity: 0.4 + Math.random() * 0.4,
     phase: 0,
