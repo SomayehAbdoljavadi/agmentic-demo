@@ -285,7 +285,7 @@ const AgentNetworkCanvas = () => {
       const t = timeRef.current;
 
       const cx = w * 0.5;
-      const cy = h * 0.48;
+      const cy = h * 0.5;
       const scroll = scrollRef.current;
       const expandFactor = 1 + Math.min(scroll, 0.5) * 0.15;
 
