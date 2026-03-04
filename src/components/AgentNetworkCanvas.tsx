@@ -410,6 +410,13 @@ const AgentNetworkCanvas = () => {
         ctx.fillText(node.label, node.x, node.y + node.radius * expandFactor + 16);
       });
 
+      // --- Draw neural clusters around each agent node ---
+      nodes.forEach((node, i) => {
+        if (clustersRef.current[i]) {
+          drawCluster(clustersRef.current[i], node.x, node.y, node.color, t, expandFactor, dt);
+        }
+      });
+
       // --- Draw Decision Core ---
       const coreActivity = 0.5 + Math.sin(t * 0.6) * 0.3;
       const coreRadius = 10 * expandFactor;
