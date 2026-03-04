@@ -5,17 +5,17 @@ const features = [
   {
     icon: BarChart3,
     title: "Analyze",
-    description: "Lucy dives into your data, uncovers insights, and explains performance in real time.",
+    description: "Agmentic dives into your data, uncovers insights, and explains performance in real time.",
   },
   {
     icon: Zap,
     title: "Execute",
-    description: "Lucy takes action across every platform — adjusting budgets, optimizing ads, and launching updates.",
+    description: "Agmentic takes action across every platform — adjusting budgets, optimizing ads, and launching updates.",
   },
   {
     icon: RefreshCw,
     title: "Delegate",
-    description: "Lucy runs assigned tasks and workflows on autopilot, managing them continuously in the background.",
+    description: "Agmentic runs assigned tasks and workflows on autopilot, managing them continuously in the background.",
   },
 ];
 

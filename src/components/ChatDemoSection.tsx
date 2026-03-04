@@ -4,10 +4,10 @@ import { Check } from "lucide-react";
 const messages = [
   {
     sender: "user",
-    text: "Hi Lucy! Every Monday at 9am, generate a weekly report for all my clients and send me an email with a summary of the most important areas to look at.",
+    text: "Hi Agmentic! Every Monday at 9am, generate a weekly report for all my clients and send me an email with a summary of the most important areas to look at.",
   },
   {
-    sender: "lucy",
+    sender: "agmentic",
     text: "Absolutely! I will handle the weekly reporting going forward.",
     hasTask: true,
     taskLabel: "Task Created",
@@ -17,7 +17,7 @@ const messages = [
     text: "Also make sure to filter out all irrelevant searches by updating our negative keyword structure for clients running Google Ads.",
   },
   {
-    sender: "lucy",
+    sender: "agmentic",
     text: "On it! Adding that to my agenda each day.",
     hasTask: true,
     taskLabel: "Task Updated",
@@ -45,10 +45,10 @@ const ChatDemoSection = () => {
                     : ""
                 }`}
               >
-                {msg.sender === "lucy" && (
-                  <span className="text-xs uppercase tracking-widest text-accent-foreground">Lucy</span>
+                {msg.sender === "agmentic" && (
+                  <span className="text-xs uppercase tracking-widest text-accent-foreground">Agmentic</span>
                 )}
-                <p className={`text-sm leading-relaxed ${msg.sender === "lucy" ? "text-foreground" : "text-secondary-foreground"}`}>
+                <p className={`text-sm leading-relaxed ${msg.sender === "agmentic" ? "text-foreground" : "text-secondary-foreground"}`}>
                   {msg.text}
                 </p>
                 {msg.hasTask && (
