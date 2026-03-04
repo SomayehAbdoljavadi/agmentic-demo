@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="border-t border-border bg-card/50">
+    <footer className="border-t border-border/30 bg-card/30 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-4 gap-10 mb-12">
           <div className="md:col-span-1">
@@ -10,7 +10,7 @@ const Footer = () => {
               <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
                 <span className="text-primary-foreground font-display font-bold text-sm">A</span>
               </div>
-              <span className="text-lg font-display font-semibold">Agmentic</span>
+              <span className="text-lg font-display font-semibold tracking-tight">Agmentic</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
               The Operating System for AI-Augmented Decision Making.
@@ -43,7 +43,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-border pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="border-t border-border/30 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground">&copy; {new Date().getFullYear()} Agmentic. All rights reserved.</p>
           <div className="flex items-center gap-4 text-xs text-muted-foreground">
             <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
