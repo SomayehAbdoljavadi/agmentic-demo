@@ -9,8 +9,8 @@ const HeroSection = () => {
       {/* Subtle background mesh */}
       <div className="absolute inset-0 gradient-mesh-strong" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20 w-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-        {/* Left side — Text content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20 w-full grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-8 items-center">
+        {/* Left side — Text content (smaller) */}
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
@@ -21,46 +21,46 @@ const HeroSection = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-xs font-medium mb-8 backdrop-blur-sm"
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-primary text-[11px] font-medium mb-6 backdrop-blur-sm"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             Decision Intelligence Platform
           </motion.div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-display font-bold leading-[1.08] mb-6 tracking-tight text-left">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold leading-[1.1] mb-4 tracking-tight text-left">
             The Operating System for{" "}
             <span className="text-gradient-glow">AI-Augmented</span>{" "}
             Decision Making
           </h1>
 
-          <p className="text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed mb-12 text-left">
+          <p className="text-sm md:text-base text-muted-foreground max-w-md leading-relaxed mb-8 text-left">
             Transform fragmented company data into structured, explainable decisions powered by AI agents.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-3">
             <Link
               to="/product"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-medium text-sm rounded-xl hover:opacity-90 transition-all glow-md"
+              className="group inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-xs rounded-xl hover:opacity-90 transition-all glow-md"
             >
               Explore Platform
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
             <Link
               to="/demo"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 glass-card text-foreground font-medium text-sm rounded-xl hover:bg-card/80 transition-all"
+              className="group inline-flex items-center justify-center gap-2 px-6 py-3 glass-card text-foreground font-medium text-xs rounded-xl hover:bg-card/80 transition-all"
             >
-              <Play className="w-4 h-4" />
-              Watch Product Demo
+              <Play className="w-3.5 h-3.5" />
+              Watch Demo
             </Link>
           </div>
         </motion.div>
 
-        {/* Right side — Animation canvas (no text/overlays) */}
+        {/* Right side — Animation canvas (bigger) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full aspect-square max-w-[600px] mx-auto hidden lg:block"
+          className="relative w-full aspect-square max-w-[700px] mx-auto hidden lg:block"
         >
           <div className="absolute inset-0 rounded-3xl overflow-hidden">
             <AgentNetworkCanvas />
