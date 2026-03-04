@@ -55,12 +55,12 @@ const HeroSection = () => {
           </div>
         </motion.div>
 
-        {/* Right side — Animation canvas (bigger) */}
+        {/* Right side — Animation canvas (centered vertically) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full aspect-square max-w-[700px] mx-auto hidden lg:block"
+          className="relative w-full aspect-square max-w-[700px] mx-auto hidden lg:flex items-center justify-center self-center"
         >
           <div className="absolute inset-0 rounded-3xl overflow-hidden">
             <AgentNetworkCanvas />
