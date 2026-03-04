@@ -12,24 +12,50 @@ import TargetCustomersSection from "@/components/TargetCustomersSection";
 import VisionSection from "@/components/VisionSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import FullPageScroll from "@/components/FullPageScroll";
+
+const sectionLabels = [
+  "Hero",
+  "Problem",
+  "Solution",
+  "How It Works",
+  "Agents",
+  "Workflow",
+  "Architecture",
+  "Dashboard",
+  "Demo",
+  "Customers",
+  "Vision",
+  "Contact",
+];
+
+const SectionWrapper = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
+  <div className={`min-h-screen flex flex-col justify-center bg-background ${className}`}>
+    {children}
+  </div>
+);
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background">
       <Navbar />
-      <HeroSection />
-      <ProblemSection />
-      <SolutionSection />
-      <HowItWorksSection />
-      <AgentsSection />
-      <AgentWorkflowSection />
-      <ArchitectureSection />
-      <DashboardSection />
-      <DemoPreviewSection />
-      <TargetCustomersSection />
-      <VisionSection />
-      <CTASection />
-      <Footer />
+      <FullPageScroll sectionLabels={sectionLabels}>
+        <HeroSection />
+        <SectionWrapper><ProblemSection /></SectionWrapper>
+        <SectionWrapper><SolutionSection /></SectionWrapper>
+        <SectionWrapper><HowItWorksSection /></SectionWrapper>
+        <SectionWrapper><AgentsSection /></SectionWrapper>
+        <SectionWrapper><AgentWorkflowSection /></SectionWrapper>
+        <SectionWrapper><ArchitectureSection /></SectionWrapper>
+        <SectionWrapper><DashboardSection /></SectionWrapper>
+        <SectionWrapper><DemoPreviewSection /></SectionWrapper>
+        <SectionWrapper><TargetCustomersSection /></SectionWrapper>
+        <SectionWrapper><VisionSection /></SectionWrapper>
+        <SectionWrapper>
+          <CTASection />
+          <Footer />
+        </SectionWrapper>
+      </FullPageScroll>
     </div>
   );
 };
