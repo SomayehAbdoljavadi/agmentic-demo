@@ -341,7 +341,7 @@ const AgentNetworkCanvas = () => {
           if (p.phase === 0) {
             p.phase = 1;
             p.progress = 0;
-            p.speed = 0.0001 + Math.random() * 0.0002;
+            p.speed = 0.0004 + Math.random() * 0.0006;
             p.sourceIdx = p.targetIdx;
           } else {
             // Particle arrived at core — trigger governance ring pulse
@@ -373,7 +373,8 @@ const AgentNetworkCanvas = () => {
         }
 
         const prog = p.progress;
-        const easedProg = prog < 0.5 ? 2 * prog * prog : 1 - Math.pow(-2 * prog + 2, 2) / 2;
+        // Smooth gentle easing — slow start, steady drift, soft arrival
+        const easedProg = prog * prog * (3 - 2 * prog); // smoothstep
         p.x = sx + (ex - sx) * easedProg;
         p.y = sy + (ey - sy) * easedProg;
 
@@ -647,7 +648,7 @@ function makeParticle(w: number, h: number, nodes: AgentNode[]): Particle {
     targetIdx,
     sourceIdx: targetIdx,
     progress: Math.random(),
-    speed: 0.00008 + Math.random() * 0.00015,
+    speed: 0.0003 + Math.random() * 0.0005,
     size: 1 + Math.random() * 1.5,
     opacity: 0.4 + Math.random() * 0.4,
     phase: 0,
