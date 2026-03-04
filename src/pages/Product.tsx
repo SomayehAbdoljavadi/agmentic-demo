@@ -78,43 +78,6 @@ const Product = () => {
         </div>
       </section>
 
-      {/* Architecture diagram */}
-      <section className="section-padding bg-surface">
-        <div className="max-w-5xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-display font-bold text-center mb-12"
-          >
-            How the Platform Works Together
-          </motion.h2>
-
-          <div className="glass-card p-8">
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="space-y-4">
-                <h4 className="text-sm font-semibold text-primary uppercase tracking-wider">Input</h4>
-                {["CRM Data", "ERP Systems", "Analytics", "Market Data"].map((item) => (
-                  <div key={item} className="p-3 rounded-lg bg-surface border border-border text-sm">{item}</div>
-                ))}
-              </div>
-              <div className="space-y-4">
-                <h4 className="text-sm font-semibold text-primary uppercase tracking-wider">Process</h4>
-                {["Data Normalization", "Profile Generation", "AI Reasoning", "Agent Validation"].map((item) => (
-                  <div key={item} className="p-3 rounded-lg bg-primary/5 border border-primary/20 text-sm">{item}</div>
-                ))}
-              </div>
-              <div className="space-y-4">
-                <h4 className="text-sm font-semibold text-primary uppercase tracking-wider">Output</h4>
-                {["Decision Reports", "Alignment Scores", "Action Items", "Audit Trails"].map((item) => (
-                  <div key={item} className="p-3 rounded-lg bg-surface border border-border text-sm">{item}</div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <CTASection />
       <Footer />
     </div>
