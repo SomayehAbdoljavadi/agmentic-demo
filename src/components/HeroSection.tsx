@@ -30,7 +30,7 @@ const HeroSection = () => {
           className="flex flex-col items-start"
         >
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold leading-[1.1] mb-4 tracking-tight text-left whitespace-nowrap">
-            The Operating System for <span className="text-gradient-glow">AI-Augmented</span> Decision Making
+            <span className="text-gradient-glow">AI-Augmented</span> Decision Making
           </h1>
 
           <p className="text-sm md:text-base text-muted-foreground max-w-md leading-relaxed text-left">
