@@ -15,27 +15,27 @@ const HeroSection = () => {
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col items-start"
+          className="flex flex-col items-start justify-between h-full min-h-[70vh]"
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-primary text-[11px] font-medium mb-6 backdrop-blur-sm"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            Decision Intelligence Platform
-          </motion.div>
+          <div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-primary text-[11px] font-medium mb-6 backdrop-blur-sm"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              Decision Intelligence Platform
+            </motion.div>
 
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold leading-[1.1] mb-4 tracking-tight text-left">
-            The Operating System for{" "}
-            <span className="text-gradient-glow">AI-Augmented</span>{" "}
-            Decision Making
-          </h1>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold leading-[1.1] mb-4 tracking-tight text-left whitespace-nowrap">
+              The Operating System for <span className="text-gradient-glow">AI-Augmented</span> Decision Making
+            </h1>
 
-          <p className="text-sm md:text-base text-muted-foreground max-w-md leading-relaxed mb-8 text-left">
-            Transform fragmented company data into structured, explainable decisions powered by AI agents.
-          </p>
+            <p className="text-sm md:text-base text-muted-foreground max-w-md leading-relaxed text-left">
+              Transform fragmented company data into structured, explainable decisions powered by AI agents.
+            </p>
+          </div>
 
           <div className="flex flex-col sm:flex-row gap-3">
             <Link
