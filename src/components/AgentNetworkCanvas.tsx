@@ -70,6 +70,9 @@ const GOV_COLOR_LIGHT = "120, 80, 200";
 
 const NEURON_COUNT = 14;
 
+// Per-node angular offsets (radians). Sales (index 0) shifted ~45° clockwise.
+const ANGLE_OFFSETS = [Math.PI * 0.24, 0, 0, 0, 0];
+
 function buildCluster(): NeuralCluster {
   const neurons: Neuron[] = [];
   for (let i = 0; i < NEURON_COUNT; i++) {
@@ -129,7 +132,7 @@ const AgentNetworkCanvas = () => {
     const ringRadius = Math.min(w, h) * 0.3;
 
     const nodes: AgentNode[] = AGENT_LABELS.map((label, i) => {
-      const angle = -Math.PI / 2 + (i / AGENT_LABELS.length) * Math.PI * 2;
+      const angle = -Math.PI / 2 + (i / AGENT_LABELS.length) * Math.PI * 2 + (ANGLE_OFFSETS[i] || 0);
       return {
         x: cx + Math.cos(angle) * ringRadius,
         y: cy + Math.sin(angle) * ringRadius,
@@ -300,7 +303,7 @@ const AgentNetworkCanvas = () => {
 
       const ringRadius = Math.min(w, h) * 0.28 * expandFactor;
       nodes.forEach((node, i) => {
-        const angle = -Math.PI / 2 + (i / nodes.length) * Math.PI * 2;
+        const angle = -Math.PI / 2 + (i / nodes.length) * Math.PI * 2 + (ANGLE_OFFSETS[i] || 0);
         node.x = cx + Math.cos(angle) * ringRadius;
         node.y = cy + Math.sin(angle) * ringRadius;
       });
@@ -356,7 +359,7 @@ const AgentNetworkCanvas = () => {
 
         if (p.phase === 0) {
           const node = nodes[p.targetIdx];
-          const angle = -Math.PI / 2 + (p.targetIdx / nodes.length) * Math.PI * 2;
+          const angle = -Math.PI / 2 + (p.targetIdx / nodes.length) * Math.PI * 2 + (ANGLE_OFFSETS[p.targetIdx] || 0);
           const spawnDist = Math.max(w, h) * 0.6;
           sx = cx + Math.cos(angle) * spawnDist;
           sy = cy + Math.sin(angle) * spawnDist;
