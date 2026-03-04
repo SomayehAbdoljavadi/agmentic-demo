@@ -120,8 +120,7 @@ const AgentNetworkCanvas = () => {
   const timeRef = useRef(0);
   const scrollRef = useRef(0);
   const clustersRef = useRef<NeuralCluster[]>([]);
-  const govClusterRef = useRef<NeuralCluster>(buildCluster());
-
+  const govPulseRef = useRef(0);
   const prefersReduced = useRef(false);
 
   const isDark = () => document.documentElement.classList.contains("dark");
@@ -319,35 +318,9 @@ const AgentNetworkCanvas = () => {
         ctx.stroke();
       });
 
-      // --- Draw connection: core to governance ---
-      const govY = cy - ringRadius * 0.65;
-      ctx.beginPath();
-      ctx.moveTo(cx, cy);
-      ctx.lineTo(cx, govY);
-      ctx.strokeStyle = `rgba(${govColor}, ${0.12 + Math.sin(t) * 0.05})`;
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
 
-      // --- Draw connection: Sales to Governance ---
-      const salesNode = nodes[0];
-      if (salesNode) {
-        ctx.beginPath();
-        ctx.moveTo(salesNode.x, salesNode.y);
-        ctx.lineTo(cx, govY);
-        ctx.strokeStyle = `rgba(${govColor}, ${0.10 + Math.sin(t * 0.8) * 0.05})`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      }
-
-      // --- Draw neural clusters around each agent node ---
-      nodes.forEach((node, i) => {
-        if (clustersRef.current[i]) {
-          drawCluster(clustersRef.current[i], node.x, node.y, node.color, t, expandFactor, dt);
-        }
-      });
-
-      // --- Draw neural cluster around governance ---
-      drawCluster(govClusterRef.current, cx, govY, govColor, t, expandFactor, dt);
+      // --- Decay governance pulse ---
+      govPulseRef.current *= 0.97;
 
       // --- Update & draw particles ---
       for (let i = particles.length - 1; i >= 0; i--) {
@@ -361,6 +334,8 @@ const AgentNetworkCanvas = () => {
             p.speed = 0.003 + Math.random() * 0.004;
             p.sourceIdx = p.targetIdx;
           } else {
+            // Particle arrived at core — trigger governance ring pulse
+            govPulseRef.current = Math.min(govPulseRef.current + 0.4, 1);
             particles[i] = makeParticle(w, h, nodes);
             continue;
           }
@@ -463,27 +438,42 @@ const AgentNetworkCanvas = () => {
       ctx.textAlign = "center";
       ctx.fillText("Decision Core", cx, cy + coreRadius + 18);
 
-      // --- Draw Governance Layer ---
-      const govActivity = 0.4 + Math.sin(t * 0.4 + 1) * 0.3;
-      const govRadius = 7 * expandFactor;
+      // --- Draw Governance Ring around Decision Core ---
+      const govBreath = 0.3 + Math.sin(t * 0.5) * 0.15;
+      const govPulseVal = govPulseRef.current;
+      const govRingRadius = coreRadius * 3.2;
+      const govRingAlpha = (0.12 + govBreath * 0.1 + govPulseVal * 0.35);
 
-      const govGrad = ctx.createRadialGradient(cx, govY, 0, cx, govY, govRadius * 5);
-      govGrad.addColorStop(0, `rgba(${govColor}, ${0.2 * govActivity})`);
-      govGrad.addColorStop(1, `rgba(${govColor}, 0)`);
-      ctx.fillStyle = govGrad;
+      // Outer soft glow
+      const govGlowGrad = ctx.createRadialGradient(cx, cy, govRingRadius - 8, cx, cy, govRingRadius + 20);
+      govGlowGrad.addColorStop(0, `rgba(${govColor}, 0)`);
+      govGlowGrad.addColorStop(0.4, `rgba(${govColor}, ${govRingAlpha * 0.3})`);
+      govGlowGrad.addColorStop(0.7, `rgba(${govColor}, ${govRingAlpha * 0.15})`);
+      govGlowGrad.addColorStop(1, `rgba(${govColor}, 0)`);
+      ctx.fillStyle = govGlowGrad;
       ctx.beginPath();
-      ctx.arc(cx, govY, govRadius * 5, 0, Math.PI * 2);
+      ctx.arc(cx, cy, govRingRadius + 20, 0, Math.PI * 2);
       ctx.fill();
 
+      // Ring stroke
       ctx.beginPath();
-      ctx.arc(cx, govY, govRadius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${govColor}, ${0.5 + govActivity * 0.4})`;
-      ctx.fill();
+      ctx.arc(cx, cy, govRingRadius, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(${govColor}, ${govRingAlpha})`;
+      ctx.lineWidth = 1.5 + govPulseVal * 1.5;
+      ctx.stroke();
 
-      ctx.fillStyle = `rgba(${govColor}, ${0.4 + govActivity * 0.3})`;
-      ctx.font = `${10 * expandFactor}px 'Space Grotesk', sans-serif`;
+      // Second thinner ring
+      ctx.beginPath();
+      ctx.arc(cx, cy, govRingRadius + 6, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(${govColor}, ${govRingAlpha * 0.4})`;
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+
+      // Label
+      ctx.fillStyle = `rgba(${govColor}, ${0.35 + govBreath * 0.2 + govPulseVal * 0.3})`;
+      ctx.font = `${9 * expandFactor}px 'Space Grotesk', sans-serif`;
       ctx.textAlign = "center";
-      ctx.fillText("Governance", cx, govY + govRadius + 14);
+      ctx.fillText("Governance", cx, cy + govRingRadius + 16);
 
       animRef.current = requestAnimationFrame(draw);
     };
