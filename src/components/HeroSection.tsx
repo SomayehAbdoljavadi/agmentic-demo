@@ -9,55 +9,58 @@ const HeroSection = () => {
       {/* Subtle background mesh */}
       <div className="absolute inset-0 gradient-mesh-strong" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-20 w-full grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-8 items-start">
-        {/* Left side — Text content (smaller) */}
+      {/* Animation canvas — centered, full section, behind text */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.85 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute inset-0 flex items-center justify-center"
+      >
+        <div className="w-[90vmin] h-[90vmin] max-w-[800px] max-h-[800px] rounded-3xl overflow-hidden">
+          <AgentNetworkCanvas />
+        </div>
+      </motion.div>
+
+      {/* Text content — top left */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-20 w-full">
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col items-start justify-between h-full min-h-[70vh]"
+          className="flex flex-col items-start"
         >
-          <div>
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold leading-[1.1] mb-4 tracking-tight text-left whitespace-nowrap">
-              The Operating System for <span className="text-gradient-glow">AI-Augmented</span> Decision Making
-            </h1>
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold leading-[1.1] mb-4 tracking-tight text-left whitespace-nowrap">
+            The Operating System for <span className="text-gradient-glow">AI-Augmented</span> Decision Making
+          </h1>
 
-            <p className="text-sm md:text-base text-muted-foreground max-w-md leading-relaxed text-left">
-              Transform fragmented company data into structured, explainable decisions powered by AI agents.
-            </p>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Link
-              to="/product"
-              className="group inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-xs rounded-xl hover:opacity-90 transition-all glow-md"
-            >
-              Explore Platform
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-            </Link>
-            <Link
-              to="/demo"
-              className="group inline-flex items-center justify-center gap-2 px-6 py-3 glass-card text-foreground font-medium text-xs rounded-xl hover:bg-card/80 transition-all"
-            >
-              <Play className="w-3.5 h-3.5" />
-              Watch Demo
-            </Link>
-          </div>
+          <p className="text-sm md:text-base text-muted-foreground max-w-md leading-relaxed text-left">
+            Transform fragmented company data into structured, explainable decisions powered by AI agents.
+          </p>
         </motion.div>
 
-        {/* Right side — Animation canvas (centered vertically) */}
+        {/* Buttons — bottom left */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full aspect-square max-w-[700px] mx-auto hidden lg:flex items-center justify-center self-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+          className="absolute bottom-20 left-6 flex flex-col sm:flex-row gap-3"
         >
-          <div className="absolute inset-0 rounded-3xl overflow-hidden">
-            <AgentNetworkCanvas />
-          </div>
+          <Link
+            to="/product"
+            className="group inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-xs rounded-xl hover:opacity-90 transition-all glow-md"
+          >
+            Explore Platform
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          </Link>
+          <Link
+            to="/demo"
+            className="group inline-flex items-center justify-center gap-2 px-6 py-3 glass-card text-foreground font-medium text-xs rounded-xl hover:bg-card/80 transition-all"
+          >
+            <Play className="w-3.5 h-3.5" />
+            Watch Demo
+          </Link>
         </motion.div>
       </div>
-
     </section>
   );
 };
