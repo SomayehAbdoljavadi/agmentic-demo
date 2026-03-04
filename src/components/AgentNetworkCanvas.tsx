@@ -78,7 +78,7 @@ function buildCluster(): NeuralCluster {
   for (let i = 0; i < NEURON_COUNT; i++) {
     neurons.push({
       angleOffset: (i / NEURON_COUNT) * Math.PI * 2 + (Math.random() - 0.5) * 1.2,
-      orbitRadius: 57 + Math.random() * 105,
+      orbitRadius: 38 + Math.random() * 70,
       orbitSpeed: 0.04 + Math.random() * 0.10,
       floatPhase: Math.random() * Math.PI * 2,
       floatAmp: 3 + Math.random() * 5,
