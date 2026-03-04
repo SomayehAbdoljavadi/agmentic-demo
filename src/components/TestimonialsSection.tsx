@@ -8,8 +8,8 @@ const testimonials = [
   },
   {
     quote: "Agmentic has become a valuable part of our workflow. By automating parts of our agency's know-how through AI agents, we can get insights faster, optimize more efficiently, and deliver higher quality to our clients.",
-    name: "Jenny Dettervik",
-    title: "Media Lead, Remotion",
+    name: "Somayeh Abdoljavadi",
+    title: "AI Lead",
   },
 ];
 
