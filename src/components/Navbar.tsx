@@ -15,7 +15,7 @@ const Navbar = () => {
           <path d="M2 20L14 26L26 20" stroke="currentColor" strokeWidth="2" fill="none" />
           <path d="M2 14L14 20L26 14" stroke="currentColor" strokeWidth="2" fill="none" />
         </svg>
-        <span className="text-lg font-medium tracking-tight text-foreground">epiminds</span>
+        <span className="text-lg font-medium tracking-tight text-foreground">Agmentic</span>
       </div>
 
       <div className="flex items-center gap-6">
