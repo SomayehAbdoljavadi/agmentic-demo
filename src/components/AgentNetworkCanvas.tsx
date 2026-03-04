@@ -120,6 +120,7 @@ const AgentNetworkCanvas = () => {
   const timeRef = useRef(0);
   const scrollRef = useRef(0);
   const clustersRef = useRef<NeuralCluster[]>([]);
+  const govClusterRef = useRef<NeuralCluster>(buildCluster());
   const govPulseRef = useRef(0);
   const prefersReduced = useRef(false);
 
@@ -474,6 +475,72 @@ const AgentNetworkCanvas = () => {
       ctx.font = `${9 * expandFactor}px 'Space Grotesk', sans-serif`;
       ctx.textAlign = "center";
       ctx.fillText("Governance", cx, cy + govRingRadius + 16);
+
+      // --- Draw governance neural cluster along the ring ---
+      {
+        const gc = govClusterRef.current;
+        const gcPositions: [number, number][] = gc.neurons.map((n, ni) => {
+          // Distribute neurons along the ring circumference
+          const baseAngle = (ni / gc.neurons.length) * Math.PI * 2;
+          const angle = baseAngle + t * n.orbitSpeed * 0.5;
+          const r = govRingRadius + Math.sin(t * 0.5 + n.floatPhase) * n.floatAmp;
+          return [cx + Math.cos(angle) * r, cy + Math.sin(angle) * r];
+        });
+
+        // Connections
+        for (const [a, b] of gc.connections) {
+          const [ax, ay] = gcPositions[a];
+          const [bx, by] = gcPositions[b];
+          ctx.beginPath();
+          ctx.moveTo(ax, ay);
+          ctx.lineTo(bx, by);
+          ctx.strokeStyle = `rgba(${govColor}, 0.06)`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+
+        // Pulses
+        for (let pi = gc.pulses.length - 1; pi >= 0; pi--) {
+          const pulse = gc.pulses[pi];
+          pulse.progress += pulse.speed * dt;
+          if (pulse.progress >= 1) { gc.pulses.splice(pi, 1); continue; }
+          const [ax, ay] = gcPositions[pulse.fromIdx];
+          const [bx, by] = gcPositions[pulse.toIdx];
+          const px = ax + (bx - ax) * pulse.progress;
+          const py = ay + (by - ay) * pulse.progress;
+          const alpha = Math.sin(pulse.progress * Math.PI) * 0.5;
+          const pg = ctx.createRadialGradient(px, py, 0, px, py, 4);
+          pg.addColorStop(0, `rgba(${govColor}, ${alpha})`);
+          pg.addColorStop(1, `rgba(${govColor}, 0)`);
+          ctx.fillStyle = pg;
+          ctx.beginPath();
+          ctx.arc(px, py, 4, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Spawn pulses
+        gc.nextPulseTime -= 0.016 * dt;
+        if (gc.nextPulseTime <= 0) {
+          const conn = gc.connections[Math.floor(Math.random() * gc.connections.length)];
+          gc.pulses.push({ fromIdx: conn[0], toIdx: conn[1], progress: 0, speed: 0.012 + Math.random() * 0.012 });
+          gc.nextPulseTime = 0.4 + Math.random() * 1.5;
+        }
+
+        // Neurons
+        for (const [nx, ny] of gcPositions) {
+          const ng = ctx.createRadialGradient(nx, ny, 0, nx, ny, 5);
+          ng.addColorStop(0, `rgba(${govColor}, 0.2)`);
+          ng.addColorStop(1, `rgba(${govColor}, 0)`);
+          ctx.fillStyle = ng;
+          ctx.beginPath();
+          ctx.arc(nx, ny, 5, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(nx, ny, 0.8, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${govColor}, 0.45)`;
+          ctx.fill();
+        }
+      }
 
       animRef.current = requestAnimationFrame(draw);
     };
