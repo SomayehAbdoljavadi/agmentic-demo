@@ -1,84 +1,80 @@
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import { Link } from "react-router-dom";
+import NeuralNetwork from "./NeuralNetwork";
 
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      <div className="absolute inset-0 gradient-mesh" />
-      <div className="absolute inset-0 grid-pattern opacity-30" />
+      {/* Neural network background */}
+      <NeuralNetwork />
+      <div className="absolute inset-0 gradient-mesh-strong" />
 
-      {/* Floating orbs */}
-      <div className="absolute top-1/4 right-1/4 w-72 h-72 rounded-full bg-primary/5 blur-3xl animate-pulse-glow" />
-      <div className="absolute bottom-1/3 left-1/6 w-96 h-96 rounded-full bg-glow/5 blur-3xl animate-pulse-glow" style={{ animationDelay: "1.5s" }} />
+      {/* Radial gradient overlay for depth */}
+      <div className="absolute inset-0" style={{
+        background: "radial-gradient(ellipse 70% 50% at 50% 50%, transparent 0%, hsl(var(--background)) 100%)"
+      }} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20 w-full">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="max-w-4xl"
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-4xl mx-auto text-center"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/20 bg-accent/50 text-accent-foreground text-xs font-medium mb-8">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-xs font-medium mb-8 backdrop-blur-sm"
+          >
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             Decision Intelligence Platform
-          </div>
+          </motion.div>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.05] mb-6">
+          <h1 className="text-4xl md:text-6xl lg:text-[4.5rem] font-display font-bold leading-[1.05] mb-6 tracking-tight">
             The Operating System for{" "}
-            <span className="text-gradient-primary">AI-Augmented</span>{" "}
+            <span className="text-gradient-glow">AI-Augmented</span>{" "}
             Decision Making
           </h1>
 
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed mb-10">
+          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-12">
             Transform fragmented company data into structured, explainable decisions powered by AI agents.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              to="/demo"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-primary text-primary-foreground font-medium text-sm rounded-lg hover:opacity-90 transition-opacity"
+              to="/product"
+              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-medium text-sm rounded-xl hover:opacity-90 transition-all glow-md"
             >
-              Try Interactive Demo
-              <ArrowRight className="w-4 h-4" />
+              Explore Platform
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
             <Link
-              to="/contact"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-border bg-card text-foreground font-medium text-sm rounded-lg hover:bg-secondary transition-colors"
+              to="/demo"
+              className="group inline-flex items-center justify-center gap-2 px-8 py-4 glass-card text-foreground font-medium text-sm rounded-xl hover:bg-card/80 transition-all"
             >
-              Request Demo
+              <Play className="w-4 h-4" />
+              Watch Product Demo
             </Link>
           </div>
         </motion.div>
 
-        {/* Dashboard preview */}
+        {/* Scroll indicator */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="mt-20 glass-card p-1.5 glow-md"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
-          <div className="rounded-xl bg-card border border-border overflow-hidden">
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
-              <div className="w-3 h-3 rounded-full bg-destructive/60" />
-              <div className="w-3 h-3 rounded-full bg-warning/60" />
-              <div className="w-3 h-3 rounded-full bg-success/60" />
-              <span className="ml-3 text-xs text-muted-foreground">Decision Intelligence Dashboard</span>
-            </div>
-            <div className="p-6 md:p-8 grid md:grid-cols-3 gap-4">
-              {[
-                { label: "Decision Score", value: "94.2", change: "+12.3%", color: "text-accent-foreground" },
-                { label: "Dept. Alignment", value: "87%", change: "+5.1%", color: "text-accent-foreground" },
-                { label: "Strategic Fit", value: "91.8", change: "+8.7%", color: "text-accent-foreground" },
-              ].map((stat) => (
-                <div key={stat.label} className="p-4 rounded-lg bg-surface border border-border">
-                  <p className="text-xs text-muted-foreground mb-1">{stat.label}</p>
-                  <p className="text-2xl font-display font-bold">{stat.value}</p>
-                  <p className={`text-xs ${stat.color} mt-1`}>{stat.change}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Scroll</span>
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            className="w-5 h-8 rounded-full border border-border/60 flex items-start justify-center pt-1.5"
+          >
+            <div className="w-1 h-1.5 rounded-full bg-primary" />
+          </motion.div>
         </motion.div>
       </div>
     </section>
