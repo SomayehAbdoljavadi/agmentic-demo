@@ -21,13 +21,14 @@ const HeroSection = () => {
         </div>
       </motion.div>
 
-      {/* Text content — top left */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-20 w-full">
+      {/* Content layer */}
+      <div className="relative z-10 w-full min-h-screen flex flex-col justify-between px-6 pt-20 pb-10">
+        {/* Title — top left */}
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col items-start"
+          className="flex flex-col items-start max-w-7xl"
         >
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold leading-[1.1] mb-4 tracking-tight text-left whitespace-nowrap">
             <span className="text-gradient-glow">AI-Augmented</span> Decision Making
@@ -43,7 +44,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="absolute bottom-20 left-6 flex flex-col sm:flex-row gap-3"
+          className="flex flex-col sm:flex-row gap-3"
         >
           <Link
             to="/product"
