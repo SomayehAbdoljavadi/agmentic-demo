@@ -1,57 +1,85 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
-import heroImage from "@/assets/hero-ai-face.png";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-end pb-20 md:pb-28 overflow-hidden">
-      {/* Hero image */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <motion.img
-          src={heroImage}
-          alt="Agmentic AI - Particle face visualization"
-          className="w-full h-full object-cover object-center opacity-80"
-          initial={{ scale: 1.1, opacity: 0 }}
-          animate={{ scale: 1, opacity: 0.8 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 to-transparent h-32" />
-      </div>
+    <section className="relative min-h-screen flex items-center overflow-hidden">
+      <div className="absolute inset-0 gradient-mesh" />
+      <div className="absolute inset-0 grid-pattern opacity-30" />
 
-      {/* Content */}
-      <div className="relative z-10 px-6 md:px-12 lg:px-20 w-full">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
+      {/* Floating orbs */}
+      <div className="absolute top-1/4 right-1/4 w-72 h-72 rounded-full bg-primary/5 blur-3xl animate-pulse-glow" />
+      <div className="absolute bottom-1/3 left-1/6 w-96 h-96 rounded-full bg-glow/5 blur-3xl animate-pulse-glow" style={{ animationDelay: "1.5s" }} />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20 w-full">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4"
+          transition={{ duration: 0.7 }}
+          className="max-w-4xl"
         >
-          Multi Agentic Teams for Marketing.
-        </motion.p>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/20 bg-accent/50 text-accent-foreground text-xs font-medium mb-8">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            Decision Intelligence Platform
+          </div>
 
-        <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-10">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.7 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-display font-normal leading-[0.95]"
-          >
-            Introducing{" "}
-            <em className="text-gradient-primary">Agmentic.</em>
-          </motion.h1>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.05] mb-6">
+            The Operating System for{" "}
+            <span className="text-gradient-primary">AI-Augmented</span>{" "}
+            Decision Making
+          </h1>
 
-          <motion.a
-            href="#request-access"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-7 py-3.5 bg-foreground text-background font-medium text-sm rounded-full hover:opacity-90 transition-opacity w-fit"
-          >
-            Request Access
-            <ArrowUpRight className="w-4 h-4" />
-          </motion.a>
-        </div>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed mb-10">
+            Transform fragmented company data into structured, explainable decisions powered by AI agents.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              to="/demo"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-primary text-primary-foreground font-medium text-sm rounded-lg hover:opacity-90 transition-opacity"
+            >
+              Try Interactive Demo
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              to="/contact"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-border bg-card text-foreground font-medium text-sm rounded-lg hover:bg-secondary transition-colors"
+            >
+              Request Demo
+            </Link>
+          </div>
+        </motion.div>
+
+        {/* Dashboard preview */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+          className="mt-20 glass-card p-1.5 glow-md"
+        >
+          <div className="rounded-xl bg-card border border-border overflow-hidden">
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
+              <div className="w-3 h-3 rounded-full bg-destructive/60" />
+              <div className="w-3 h-3 rounded-full bg-warning/60" />
+              <div className="w-3 h-3 rounded-full bg-success/60" />
+              <span className="ml-3 text-xs text-muted-foreground">Decision Intelligence Dashboard</span>
+            </div>
+            <div className="p-6 md:p-8 grid md:grid-cols-3 gap-4">
+              {[
+                { label: "Decision Score", value: "94.2", change: "+12.3%", color: "text-accent-foreground" },
+                { label: "Dept. Alignment", value: "87%", change: "+5.1%", color: "text-accent-foreground" },
+                { label: "Strategic Fit", value: "91.8", change: "+8.7%", color: "text-accent-foreground" },
+              ].map((stat) => (
+                <div key={stat.label} className="p-4 rounded-lg bg-surface border border-border">
+                  <p className="text-xs text-muted-foreground mb-1">{stat.label}</p>
+                  <p className="text-2xl font-display font-bold">{stat.value}</p>
+                  <p className={`text-xs ${stat.color} mt-1`}>{stat.change}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

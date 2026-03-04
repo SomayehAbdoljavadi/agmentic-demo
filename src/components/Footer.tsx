@@ -1,17 +1,55 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
-    <footer className="px-6 md:px-12 lg:px-20 py-10 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
-      <div className="flex items-center gap-2">
-        <svg width="20" height="20" viewBox="0 0 28 28" fill="none" className="text-primary">
-          <path d="M14 2L2 8L14 14L26 8L14 2Z" stroke="currentColor" strokeWidth="2" fill="none" />
-          <path d="M2 20L14 26L26 20" stroke="currentColor" strokeWidth="2" fill="none" />
-          <path d="M2 14L14 20L26 14" stroke="currentColor" strokeWidth="2" fill="none" />
-        </svg>
-        <span className="text-sm text-muted-foreground">Agmentic</span>
-      </div>
-      <div className="flex items-center gap-6 text-sm text-muted-foreground">
-        <a href="#" className="hover:text-foreground transition-colors">LinkedIn</a>
-        <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
+    <footer className="border-t border-border bg-card/50">
+      <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="grid md:grid-cols-4 gap-10 mb-12">
+          <div className="md:col-span-1">
+            <Link to="/" className="flex items-center gap-2.5 mb-4">
+              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+                <span className="text-primary-foreground font-display font-bold text-sm">A</span>
+              </div>
+              <span className="text-lg font-display font-semibold">Agmentic</span>
+            </Link>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              The Operating System for AI-Augmented Decision Making.
+            </p>
+          </div>
+
+          <div>
+            <h4 className="text-sm font-semibold mb-4">Platform</h4>
+            <div className="space-y-2.5">
+              <Link to="/product" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Product</Link>
+              <Link to="/technology" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Technology</Link>
+              <Link to="/demo" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Demo</Link>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="text-sm font-semibold mb-4">Company</h4>
+            <div className="space-y-2.5">
+              <Link to="/about" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">About</Link>
+              <Link to="/contact" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Contact</Link>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="text-sm font-semibold mb-4">Connect</h4>
+            <div className="space-y-2.5">
+              <a href="#" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">LinkedIn</a>
+              <a href="#" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Twitter</a>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-border pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-muted-foreground">&copy; {new Date().getFullYear()} Agmentic. All rights reserved.</p>
+          <div className="flex items-center gap-4 text-xs text-muted-foreground">
+            <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
+            <a href="#" className="hover:text-foreground transition-colors">Terms</a>
+          </div>
+        </div>
       </div>
     </footer>
   );

@@ -1,44 +1,31 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
-import darkBg from "@/assets/dark-bg.png";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const CTASection = () => {
   return (
-    <section id="request-access" className="relative section-padding overflow-hidden">
-      <div className="absolute inset-0 opacity-50">
-        <img src={darkBg} alt="" className="w-full h-full object-cover" />
-      </div>
-
+    <section className="section-padding relative overflow-hidden">
+      <div className="absolute inset-0 gradient-mesh" />
       <div className="relative z-10 max-w-4xl mx-auto text-center">
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6"
-        >
-          Join the Next Generation of Marketing
-        </motion.p>
-
-        <motion.h2
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-6xl lg:text-7xl font-display mb-10"
         >
-          Request<br />Early Access.
-        </motion.h2>
-
-        <motion.a
-          href="#"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-background font-medium rounded-full hover:opacity-90 transition-opacity text-base"
-        >
-          Request Access
-          <ArrowUpRight className="w-5 h-5" />
-        </motion.a>
+          <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">
+            Ready to Transform Your Decision Making?
+          </h2>
+          <p className="text-muted-foreground text-lg mb-10 max-w-xl mx-auto">
+            Join leading organizations using Agmentic to align strategy and execution.
+          </p>
+          <Link
+            to="/contact"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-medium rounded-lg hover:opacity-90 transition-opacity text-base"
+          >
+            Request Demo
+            <ArrowRight className="w-5 h-5" />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
