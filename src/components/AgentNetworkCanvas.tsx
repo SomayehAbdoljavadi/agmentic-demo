@@ -335,7 +335,7 @@ const AgentNetworkCanvas = () => {
       // --- Update & draw particles ---
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
-        p.progress += p.speed * dt;
+        p.progress += p.speed * dt * 0.1;
 
         if (p.progress >= 1) {
           if (p.phase === 0) {
