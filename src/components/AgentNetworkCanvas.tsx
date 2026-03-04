@@ -68,7 +68,7 @@ const CORE_COLOR_LIGHT = "60, 100, 220";
 const GOV_COLOR_DARK = "200, 160, 255";
 const GOV_COLOR_LIGHT = "120, 80, 200";
 
-const NEURON_COUNT = 28;
+const NEURON_COUNT = 40;
 
 // Per-node angular offsets (radians). Sales (index 0) shifted ~30° counterclockwise.
 const ANGLE_OFFSETS = [-Math.PI * 0.10, 0, 0, 0, 0];
@@ -77,16 +77,16 @@ function buildCluster(): NeuralCluster {
   const neurons: Neuron[] = [];
   for (let i = 0; i < NEURON_COUNT; i++) {
     neurons.push({
-      angleOffset: (i / NEURON_COUNT) * Math.PI * 2 + (Math.random() - 0.5) * 0.8,
-      orbitRadius: 18 + Math.random() * 22,
-      orbitSpeed: 0.08 + Math.random() * 0.12,
+      angleOffset: (i / NEURON_COUNT) * Math.PI * 2 + (Math.random() - 0.5) * 1.2,
+      orbitRadius: 14 + Math.random() * 38,
+      orbitSpeed: 0.05 + Math.random() * 0.12,
       floatPhase: Math.random() * Math.PI * 2,
-      floatAmp: 2 + Math.random() * 3,
-      size: 0.8 + Math.random() * 1,
+      floatAmp: 2 + Math.random() * 4,
+      size: 0.6 + Math.random() * 1,
     });
   }
 
-  // Build connections — connect nearby neurons
+  // Build connections — nearby + cross + random long-range
   const connections: [number, number][] = [];
   for (let i = 0; i < NEURON_COUNT; i++) {
     for (let d = 1; d <= 3; d++) {
@@ -96,6 +96,11 @@ function buildCluster(): NeuralCluster {
     if (i % 2 === 0) {
       const j = (i + Math.floor(NEURON_COUNT / 2)) % NEURON_COUNT;
       connections.push([i, j]);
+    }
+    // Random long-range connection for organic feel
+    if (i % 3 === 0) {
+      const j = Math.floor(Math.random() * NEURON_COUNT);
+      if (j !== i) connections.push([i, j]);
     }
   }
 
@@ -239,17 +244,23 @@ const AgentNetworkCanvas = () => {
         ctx.fill();
       }
 
-      // Spawn new pulses
+      // Spawn new pulses — multiple directions, varied origins
       cluster.nextPulseTime -= 0.016 * dt;
       if (cluster.nextPulseTime <= 0) {
-        const conn = connections[Math.floor(Math.random() * connections.length)];
-        pulses.push({
-          fromIdx: conn[0],
-          toIdx: conn[1],
-          progress: 0,
-          speed: 0.015 + Math.random() * 0.015,
-        });
-        cluster.nextPulseTime = 0.3 + Math.random() * 1.2;
+        // Spawn 1-3 pulses at once from different connections
+        const count = 1 + Math.floor(Math.random() * 3);
+        for (let s = 0; s < count; s++) {
+          const conn = connections[Math.floor(Math.random() * connections.length)];
+          // Randomly reverse direction for variety
+          const [from, to] = Math.random() > 0.5 ? [conn[0], conn[1]] : [conn[1], conn[0]];
+          pulses.push({
+            fromIdx: from,
+            toIdx: to,
+            progress: 0,
+            speed: 0.01 + Math.random() * 0.02,
+          });
+        }
+        cluster.nextPulseTime = 0.15 + Math.random() * 0.8;
       }
 
       // Draw neurons
