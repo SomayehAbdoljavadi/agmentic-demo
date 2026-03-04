@@ -447,7 +447,7 @@ const AgentNetworkCanvas = () => {
       // --- Draw Governance Ring around Decision Core ---
       const govBreath = 0.3 + Math.sin(t * 0.5) * 0.15;
       const govPulseVal = govPulseRef.current;
-      const govRingRadius = coreRadius * 5.5;
+      const govRingRadius = coreRadius * 6.9;
       const govRingAlpha = (0.12 + govBreath * 0.1 + govPulseVal * 0.35);
 
       // Inner fill — subtle supervisory area
