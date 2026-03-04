@@ -460,36 +460,84 @@ const AgentNetworkCanvas = () => {
       ctx.arc(cx, cy, govRingRadius, 0, Math.PI * 2);
       ctx.fill();
 
-      // Outer soft glow
-      const govGlowGrad = ctx.createRadialGradient(cx, cy, govRingRadius - 12, cx, cy, govRingRadius + 25);
-      govGlowGrad.addColorStop(0, `rgba(${govColor}, 0)`);
-      govGlowGrad.addColorStop(0.35, `rgba(${govColor}, ${govRingAlpha * 0.25})`);
-      govGlowGrad.addColorStop(0.7, `rgba(${govColor}, ${govRingAlpha * 0.12})`);
-      govGlowGrad.addColorStop(1, `rgba(${govColor}, 0)`);
-      ctx.fillStyle = govGlowGrad;
-      ctx.beginPath();
-      ctx.arc(cx, cy, govRingRadius + 25, 0, Math.PI * 2);
-      ctx.fill();
+      // --- Three concentric governance rings with scanning wave ---
+      const ringRadii = [govRingRadius * 0.75, govRingRadius, govRingRadius * 1.18];
+      const ringWidths = [0.8, 1.8 + govPulseVal * 2, 0.6];
+      const ringBaseAlphas = [govRingAlpha * 0.4, govRingAlpha, govRingAlpha * 0.3];
 
-      // Main ring stroke
-      ctx.beginPath();
-      ctx.arc(cx, cy, govRingRadius, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(${govColor}, ${govRingAlpha})`;
-      ctx.lineWidth = 2 + govPulseVal * 2;
-      ctx.stroke();
+      // Ripple outward animation
+      const ripple = (Math.sin(t * 0.8) + 1) * 0.5; // 0-1
 
-      // Second thinner ring
-      ctx.beginPath();
-      ctx.arc(cx, cy, govRingRadius + 8, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(${govColor}, ${govRingAlpha * 0.35})`;
-      ctx.lineWidth = 0.5;
-      ctx.stroke();
+      for (let ri = 0; ri < 3; ri++) {
+        const r = ringRadii[ri] + ripple * 3 * (ri - 1); // subtle outward ripple
+        const alpha = ringBaseAlphas[ri];
 
-      // Label below ring
+        // Soft glow around each ring
+        const glowGrad = ctx.createRadialGradient(cx, cy, r - 6, cx, cy, r + 10);
+        glowGrad.addColorStop(0, `rgba(${govColor}, 0)`);
+        glowGrad.addColorStop(0.4, `rgba(${govColor}, ${alpha * 0.2})`);
+        glowGrad.addColorStop(1, `rgba(${govColor}, 0)`);
+        ctx.fillStyle = glowGrad;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r + 10, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Ring stroke
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(${govColor}, ${alpha})`;
+        ctx.lineWidth = ringWidths[ri];
+        ctx.stroke();
+      }
+
+      // --- Scanning wave: rotating bright arc along each ring ---
+      const scanAngle = t * 0.4; // slow rotation
+      const scanArcLength = Math.PI * 0.4; // ~72° sweep
+
+      for (let ri = 0; ri < 3; ri++) {
+        const r = ringRadii[ri] + ripple * 3 * (ri - 1);
+        const offset = ri * Math.PI * 0.25; // stagger each ring's scan
+        const startAngle = scanAngle + offset;
+        const endAngle = startAngle + scanArcLength;
+
+        // Bright arc
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, startAngle, endAngle);
+        ctx.strokeStyle = `rgba(${govColor}, ${0.25 + govPulseVal * 0.3})`;
+        ctx.lineWidth = ringWidths[ri] + 1;
+        ctx.stroke();
+
+        // Leading glow dot
+        const leadAngle = endAngle;
+        const lx = cx + Math.cos(leadAngle) * r;
+        const ly = cy + Math.sin(leadAngle) * r;
+        const dotGrad = ctx.createRadialGradient(lx, ly, 0, lx, ly, 8);
+        dotGrad.addColorStop(0, `rgba(${govColor}, ${0.4 + govPulseVal * 0.3})`);
+        dotGrad.addColorStop(1, `rgba(${govColor}, 0)`);
+        ctx.fillStyle = dotGrad;
+        ctx.beginPath();
+        ctx.arc(lx, ly, 8, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // --- Occasional validation wave burst (when particles arrive) ---
+      if (govPulseVal > 0.05) {
+        for (let ri = 0; ri < 3; ri++) {
+          const r = ringRadii[ri];
+          ctx.beginPath();
+          ctx.arc(cx, cy, r, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(${govColor}, ${govPulseVal * 0.4})`;
+          ctx.lineWidth = 3 * govPulseVal;
+          ctx.stroke();
+        }
+      }
+
+      // Label below outermost ring
+      const outerR = ringRadii[2] + ripple * 3;
       ctx.fillStyle = `rgba(${govColor}, ${0.4 + govBreath * 0.2 + govPulseVal * 0.3})`;
       ctx.font = `${10 * expandFactor}px 'Space Grotesk', sans-serif`;
       ctx.textAlign = "center";
-      ctx.fillText("Governance", cx, cy + govRingRadius + 20);
+      ctx.fillText("Governance", cx, cy + outerR + 20);
 
       // --- Draw governance neural cluster along the ring ---
       {
