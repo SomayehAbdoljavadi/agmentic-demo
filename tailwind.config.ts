@@ -14,9 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
-        display: ["Space Grotesk", "sans-serif"],
-        heading: ["Sora", "sans-serif"],
+        sans: ["Plus Jakarta Sans", "Inter", "sans-serif"],
+        display: ["Playfair Display", "DM Serif Display", "serif"],
+        heading: ["DM Serif Display", "Playfair Display", "serif"],
         body: ["Plus Jakarta Sans", "Inter", "sans-serif"],
       },
       colors: {
