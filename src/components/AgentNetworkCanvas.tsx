@@ -68,10 +68,10 @@ const CORE_COLOR_LIGHT = "60, 100, 220";
 const GOV_COLOR_DARK = "200, 160, 255";
 const GOV_COLOR_LIGHT = "120, 80, 200";
 
-const NEURON_COUNT = 14;
+const NEURON_COUNT = 28;
 
-// Per-node angular offsets (radians). Sales (index 0) shifted slightly clockwise.
-const ANGLE_OFFSETS = [Math.PI * 0.07, 0, 0, 0, 0];
+// Per-node angular offsets (radians). Sales (index 0) shifted ~30° counterclockwise.
+const ANGLE_OFFSETS = [-Math.PI * 0.10, 0, 0, 0, 0];
 
 function buildCluster(): NeuralCluster {
   const neurons: Neuron[] = [];
@@ -89,13 +89,11 @@ function buildCluster(): NeuralCluster {
   // Build connections — connect nearby neurons
   const connections: [number, number][] = [];
   for (let i = 0; i < NEURON_COUNT; i++) {
-    // Connect to 2-3 nearest by index with wrap
-    for (let d = 1; d <= 2; d++) {
+    for (let d = 1; d <= 3; d++) {
       const j = (i + d) % NEURON_COUNT;
       connections.push([i, j]);
     }
-    // A few cross connections
-    if (i % 3 === 0) {
+    if (i % 2 === 0) {
       const j = (i + Math.floor(NEURON_COUNT / 2)) % NEURON_COUNT;
       connections.push([i, j]);
     }
