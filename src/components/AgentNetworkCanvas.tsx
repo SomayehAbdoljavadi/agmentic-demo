@@ -70,8 +70,8 @@ const GOV_COLOR_LIGHT = "120, 80, 200";
 
 const NEURON_COUNT = 14;
 
-// Per-node angular offsets (radians). Sales (index 0) shifted ~45° clockwise.
-const ANGLE_OFFSETS = [Math.PI * 0.24, 0, 0, 0, 0];
+// Per-node angular offsets (radians). Sales (index 0) shifted slightly clockwise.
+const ANGLE_OFFSETS = [Math.PI * 0.07, 0, 0, 0, 0];
 
 function buildCluster(): NeuralCluster {
   const neurons: Neuron[] = [];
