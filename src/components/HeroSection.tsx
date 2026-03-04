@@ -34,7 +34,7 @@ const HeroSection = () => {
             <span className="text-gradient-glow">AI-Augmented</span> Decision Making
           </h1>
 
-          <p className="text-sm md:text-base text-muted-foreground max-w-md leading-relaxed text-left">
+          <p className="text-xs text-muted-foreground leading-relaxed text-left italic whitespace-nowrap">
             Transform fragmented company data into structured, explainable decisions powered by AI agents.
           </p>
         </motion.div>
