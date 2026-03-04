@@ -328,6 +328,17 @@ const AgentNetworkCanvas = () => {
       ctx.lineWidth = 1.5;
       ctx.stroke();
 
+      // --- Draw connection: Sales to Governance ---
+      const salesNode = nodes[0];
+      if (salesNode) {
+        ctx.beginPath();
+        ctx.moveTo(salesNode.x, salesNode.y);
+        ctx.lineTo(cx, govY);
+        ctx.strokeStyle = `rgba(${govColor}, ${0.10 + Math.sin(t * 0.8) * 0.05})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
       // --- Draw neural clusters around each agent node ---
       nodes.forEach((node, i) => {
         if (clustersRef.current[i]) {
