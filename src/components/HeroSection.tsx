@@ -9,7 +9,7 @@ const HeroSection = () => {
       {/* Subtle background mesh */}
       <div className="absolute inset-0 gradient-mesh-strong" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20 w-full grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-8 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-20 w-full grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-8 items-start">
         {/* Left side — Text content (smaller) */}
         <motion.div
           initial={{ opacity: 0, x: -40 }}
