@@ -341,7 +341,7 @@ const AgentNetworkCanvas = () => {
           if (p.phase === 0) {
             p.phase = 1;
             p.progress = 0;
-            p.speed = 0.001 + Math.random() * 0.002;
+            p.speed = 0.0004 + Math.random() * 0.0008;
             p.sourceIdx = p.targetIdx;
           } else {
             // Particle arrived at core — trigger governance ring pulse
@@ -647,7 +647,7 @@ function makeParticle(w: number, h: number, nodes: AgentNode[]): Particle {
     targetIdx,
     sourceIdx: targetIdx,
     progress: Math.random(),
-    speed: 0.0008 + Math.random() * 0.0015,
+    speed: 0.00032 + Math.random() * 0.0006,
     size: 1 + Math.random() * 1.5,
     opacity: 0.4 + Math.random() * 0.4,
     phase: 0,
