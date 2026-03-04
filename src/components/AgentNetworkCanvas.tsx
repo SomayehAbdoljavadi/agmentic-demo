@@ -157,7 +157,7 @@ const AgentNetworkCanvas = () => {
     }
 
     const particles: Particle[] = [];
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 70; i++) {
       particles.push(makeParticle(w, h, nodes));
     }
     particlesRef.current = particles;
@@ -260,7 +260,7 @@ const AgentNetworkCanvas = () => {
             speed: 0.01 + Math.random() * 0.02,
           });
         }
-        cluster.nextPulseTime = 0.15 + Math.random() * 0.8;
+        cluster.nextPulseTime = 0.08 + Math.random() * 0.5;
       }
 
       // Draw neurons
@@ -355,10 +355,13 @@ const AgentNetworkCanvas = () => {
 
         if (p.phase === 0) {
           const node = nodes[p.targetIdx];
-          const angle = -Math.PI / 2 + (p.targetIdx / nodes.length) * Math.PI * 2 + (ANGLE_OFFSETS[p.targetIdx] || 0);
-          const spawnDist = Math.max(w, h) * 0.6;
-          sx = cx + Math.cos(angle) * spawnDist;
-          sy = cy + Math.sin(angle) * spawnDist;
+          // Randomize spawn angle for directional diversity
+          const baseAngle = -Math.PI / 2 + (p.targetIdx / nodes.length) * Math.PI * 2 + (ANGLE_OFFSETS[p.targetIdx] || 0);
+          const angleSpread = (Math.random() - 0.5) * Math.PI * 1.2; // ±108° variation
+          const spawnAngle = baseAngle + angleSpread;
+          const spawnDist = Math.max(w, h) * (0.5 + Math.random() * 0.3);
+          sx = cx + Math.cos(spawnAngle) * spawnDist;
+          sy = cy + Math.sin(spawnAngle) * spawnDist;
           ex = node.x;
           ey = node.y;
         } else {
