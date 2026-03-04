@@ -7,7 +7,7 @@ const Footer = () => {
           <path d="M2 20L14 26L26 20" stroke="currentColor" strokeWidth="2" fill="none" />
           <path d="M2 14L14 20L26 14" stroke="currentColor" strokeWidth="2" fill="none" />
         </svg>
-        <span className="text-sm text-muted-foreground">epiminds</span>
+        <span className="text-sm text-muted-foreground">Agmentic</span>
       </div>
       <div className="flex items-center gap-6 text-sm text-muted-foreground">
         <a href="#" className="hover:text-foreground transition-colors">LinkedIn</a>

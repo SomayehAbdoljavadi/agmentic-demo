@@ -2,12 +2,12 @@ import { motion } from "framer-motion";
 
 const testimonials = [
   {
-    quote: "We've integrated Epiminds, a powerful stack of AI agents, into our advertising workflows. It has really started transforming how our specialists work by automating analysis and surfacing deep actionable insights, while we remain in control of strategic decisions.",
+    quote: "We've integrated Agmentic, a powerful stack of AI agents, into our advertising workflows. It has really started transforming how our specialists work by automating analysis and surfacing deep actionable insights, while we remain in control of strategic decisions.",
     name: "John Axelsson",
     title: "CEO of BBO",
   },
   {
-    quote: "EpiMinds has become a valuable part of our workflow. By automating parts of our agency's know-how through AI agents, we can get insights faster, optimize more efficiently, and deliver higher quality to our clients.",
+    quote: "Agmentic has become a valuable part of our workflow. By automating parts of our agency's know-how through AI agents, we can get insights faster, optimize more efficiently, and deliver higher quality to our clients.",
     name: "Jenny Dettervik",
     title: "Media Lead, Remotion",
   },
