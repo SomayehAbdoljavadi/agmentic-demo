@@ -5,7 +5,7 @@ import SolutionSection from "@/components/SolutionSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import AgentsSection from "@/components/AgentsSection";
 import AgentWorkflowSection from "@/components/AgentWorkflowSection";
-import ArchitectureSection from "@/components/ArchitectureSection";
+
 import DashboardSection from "@/components/DashboardSection";
 import DemoPreviewSection from "@/components/DemoPreviewSection";
 import TargetCustomersSection from "@/components/TargetCustomersSection";
@@ -21,7 +21,7 @@ const sectionLabels = [
   "How It Works",
   "Agents",
   "Workflow",
-  "Architecture",
+  
   "Dashboard",
   "Demo",
   "Customers",
@@ -46,7 +46,7 @@ const Index = () => {
         <SectionWrapper><HowItWorksSection /></SectionWrapper>
         <SectionWrapper><AgentsSection /></SectionWrapper>
         <SectionWrapper><AgentWorkflowSection /></SectionWrapper>
-        <SectionWrapper><ArchitectureSection /></SectionWrapper>
+        
         <SectionWrapper><DashboardSection /></SectionWrapper>
         <SectionWrapper><DemoPreviewSection /></SectionWrapper>
         <SectionWrapper><TargetCustomersSection /></SectionWrapper>
