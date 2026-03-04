@@ -20,7 +20,7 @@ const NewsSection = () => {
           viewport={{ once: true }}
           className="text-3xl md:text-5xl font-display mb-12"
         >
-          Keep up with Lucy.<br />Read our News.
+          Keep up with Agmentic.<br />Read our News.
         </motion.h2>
 
         <motion.a

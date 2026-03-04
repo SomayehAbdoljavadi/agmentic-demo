@@ -5,21 +5,21 @@ const cards = [
   {
     icon: Link2,
     title: "Connected to Your Marketing Stack.",
-    description: "Lucy integrates with your entire marketing ecosystem — channels, CRMs, eCommerce, analytics, data warehouses, and trend platforms — to deliver one holistic view of performance.",
+    description: "Agmentic integrates with your entire marketing ecosystem — channels, CRMs, eCommerce, analytics, data warehouses, and trend platforms — to deliver one holistic view of performance.",
   },
   {
     icon: Brain,
-    title: "Lucy Learns How You Work.",
-    description: "Upload playbooks, training docs, and client context — Lucy adapts to your agency's methods and preferences. Over time, she mirrors how your team thinks and operates.",
+    title: "Agmentic Learns How You Work.",
+    description: "Upload playbooks, training docs, and client context — Agmentic adapts to your agency's methods and preferences. Over time, it mirrors how your team thinks and operates.",
   },
   {
     icon: MessageSquare,
     title: "Native in Your Systems.",
-    description: "Lucy is built to act like a colleague — she works where you work. You can chat with her in Slack or email her with questions or tasks.",
+    description: "Agmentic is built to act like a colleague — it works where you work. You can chat with it in Slack or email it with questions or tasks.",
   },
   {
     icon: Bell,
-    title: "Lucy is Proactive.",
+    title: "Agmentic is Proactive.",
     description: "She constantly reviews performance, flags issues, and surfaces insights before they impact results.",
   },
 ];
@@ -34,7 +34,7 @@ const AdaptsSection = () => {
           viewport={{ once: true }}
           className="text-3xl md:text-5xl font-display mb-16 text-center"
         >
-          Lucy Adapts to You.
+          Agmentic Adapts to You.
         </motion.h2>
 
         <div className="grid md:grid-cols-2 gap-6">

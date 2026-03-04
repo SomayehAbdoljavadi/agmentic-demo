@@ -9,7 +9,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 flex items-center justify-center">
         <motion.img
           src={heroImage}
-          alt="Lucy AI - Particle face visualization"
+          alt="Agmentic AI - Particle face visualization"
           className="w-full h-full object-cover object-center opacity-80"
           initial={{ scale: 1.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 0.8 }}
@@ -38,7 +38,7 @@ const HeroSection = () => {
             className="text-5xl md:text-7xl lg:text-8xl font-display font-normal leading-[0.95]"
           >
             Introducing{" "}
-            <em className="text-gradient-primary">Lucy.</em>
+            <em className="text-gradient-primary">Agmentic.</em>
           </motion.h1>
 
           <motion.a

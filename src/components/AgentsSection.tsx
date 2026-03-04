@@ -35,7 +35,7 @@ const AgentsSection = () => {
           transition={{ delay: 0.2 }}
           className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed"
         >
-          Lucy coordinates 20+ autonomous agents that collaborate across data, creative, and strategy. 
+          Agmentic coordinates 20+ autonomous agents that collaborate across data, creative, and strategy. 
           Each agent is built for a specific marketing discipline — reporting, optimization, bidding, 
           creative analysis, and more. Together, they function as a synchronized, intelligent system.
         </motion.p>
