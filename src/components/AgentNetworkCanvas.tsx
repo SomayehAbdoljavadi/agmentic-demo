@@ -310,7 +310,7 @@ const AgentNetworkCanvas = () => {
         node.activity = 0.3 + Math.sin(t * 0.8 + i * 1.2) * 0.3;
       });
 
-      const ringRadius = Math.min(w, h) * 0.28 * expandFactor;
+      const ringRadius = Math.min(w, h) * 0.36 * expandFactor;
       nodes.forEach((node, i) => {
         const angle = -Math.PI / 2 + (i / nodes.length) * Math.PI * 2 + (ANGLE_OFFSETS[i] || 0);
         node.x = cx + Math.cos(angle) * ringRadius;
