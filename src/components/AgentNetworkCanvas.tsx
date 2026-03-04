@@ -79,7 +79,7 @@ function buildCluster(): NeuralCluster {
     neurons.push({
       angleOffset: (i / NEURON_COUNT) * Math.PI * 2 + (Math.random() - 0.5) * 1.2,
       orbitRadius: 57 + Math.random() * 105,
-      orbitSpeed: 0.04 + Math.random() * 0.10,
+      orbitSpeed: 0.015 + Math.random() * 0.04,
       floatPhase: Math.random() * Math.PI * 2,
       floatAmp: 3 + Math.random() * 5,
       size: 0.6 + Math.random() * 1,
@@ -144,7 +144,7 @@ const AgentNetworkCanvas = () => {
         color: isDark() ? AGENT_COLORS_DARK[i] : AGENT_COLORS_LIGHT[i],
         glowColor: isDark() ? AGENT_COLORS_DARK[i] : AGENT_COLORS_LIGHT[i],
         pulse: Math.random() * Math.PI * 2,
-        pulseSpeed: 0.015 + Math.random() * 0.01,
+        pulseSpeed: 0.006 + Math.random() * 0.005,
         activity: 0,
       };
     });
@@ -257,7 +257,7 @@ const AgentNetworkCanvas = () => {
             fromIdx: from,
             toIdx: to,
             progress: 0,
-            speed: 0.01 + Math.random() * 0.02,
+            speed: 0.004 + Math.random() * 0.008,
           });
         }
         cluster.nextPulseTime = 0.15 + Math.random() * 0.8;
@@ -341,7 +341,7 @@ const AgentNetworkCanvas = () => {
           if (p.phase === 0) {
             p.phase = 1;
             p.progress = 0;
-            p.speed = 0.003 + Math.random() * 0.004;
+            p.speed = 0.0015 + Math.random() * 0.002;
             p.sourceIdx = p.targetIdx;
           } else {
             // Particle arrived at core — trigger governance ring pulse
@@ -644,7 +644,7 @@ function makeParticle(w: number, h: number, nodes: AgentNode[]): Particle {
     targetIdx,
     sourceIdx: targetIdx,
     progress: Math.random(),
-    speed: 0.002 + Math.random() * 0.004,
+    speed: 0.001 + Math.random() * 0.002,
     size: 1 + Math.random() * 1.5,
     opacity: 0.4 + Math.random() * 0.4,
     phase: 0,
