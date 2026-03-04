@@ -442,39 +442,49 @@ const AgentNetworkCanvas = () => {
       // --- Draw Governance Ring around Decision Core ---
       const govBreath = 0.3 + Math.sin(t * 0.5) * 0.15;
       const govPulseVal = govPulseRef.current;
-      const govRingRadius = coreRadius * 3.2;
+      const govRingRadius = coreRadius * 5.5;
       const govRingAlpha = (0.12 + govBreath * 0.1 + govPulseVal * 0.35);
 
+      // Inner fill — subtle supervisory area
+      const govAreaGrad = ctx.createRadialGradient(cx, cy, coreRadius * 1.5, cx, cy, govRingRadius);
+      govAreaGrad.addColorStop(0, `rgba(${govColor}, ${0.02 + govPulseVal * 0.04})`);
+      govAreaGrad.addColorStop(0.7, `rgba(${govColor}, ${0.04 + govPulseVal * 0.06})`);
+      govAreaGrad.addColorStop(1, `rgba(${govColor}, 0)`);
+      ctx.fillStyle = govAreaGrad;
+      ctx.beginPath();
+      ctx.arc(cx, cy, govRingRadius, 0, Math.PI * 2);
+      ctx.fill();
+
       // Outer soft glow
-      const govGlowGrad = ctx.createRadialGradient(cx, cy, govRingRadius - 8, cx, cy, govRingRadius + 20);
+      const govGlowGrad = ctx.createRadialGradient(cx, cy, govRingRadius - 12, cx, cy, govRingRadius + 25);
       govGlowGrad.addColorStop(0, `rgba(${govColor}, 0)`);
-      govGlowGrad.addColorStop(0.4, `rgba(${govColor}, ${govRingAlpha * 0.3})`);
-      govGlowGrad.addColorStop(0.7, `rgba(${govColor}, ${govRingAlpha * 0.15})`);
+      govGlowGrad.addColorStop(0.35, `rgba(${govColor}, ${govRingAlpha * 0.25})`);
+      govGlowGrad.addColorStop(0.7, `rgba(${govColor}, ${govRingAlpha * 0.12})`);
       govGlowGrad.addColorStop(1, `rgba(${govColor}, 0)`);
       ctx.fillStyle = govGlowGrad;
       ctx.beginPath();
-      ctx.arc(cx, cy, govRingRadius + 20, 0, Math.PI * 2);
+      ctx.arc(cx, cy, govRingRadius + 25, 0, Math.PI * 2);
       ctx.fill();
 
-      // Ring stroke
+      // Main ring stroke
       ctx.beginPath();
       ctx.arc(cx, cy, govRingRadius, 0, Math.PI * 2);
       ctx.strokeStyle = `rgba(${govColor}, ${govRingAlpha})`;
-      ctx.lineWidth = 1.5 + govPulseVal * 1.5;
+      ctx.lineWidth = 2 + govPulseVal * 2;
       ctx.stroke();
 
       // Second thinner ring
       ctx.beginPath();
-      ctx.arc(cx, cy, govRingRadius + 6, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(${govColor}, ${govRingAlpha * 0.4})`;
+      ctx.arc(cx, cy, govRingRadius + 8, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(${govColor}, ${govRingAlpha * 0.35})`;
       ctx.lineWidth = 0.5;
       ctx.stroke();
 
-      // Label
-      ctx.fillStyle = `rgba(${govColor}, ${0.35 + govBreath * 0.2 + govPulseVal * 0.3})`;
-      ctx.font = `${9 * expandFactor}px 'Space Grotesk', sans-serif`;
+      // Label below ring
+      ctx.fillStyle = `rgba(${govColor}, ${0.4 + govBreath * 0.2 + govPulseVal * 0.3})`;
+      ctx.font = `${10 * expandFactor}px 'Space Grotesk', sans-serif`;
       ctx.textAlign = "center";
-      ctx.fillText("Governance", cx, cy + govRingRadius + 16);
+      ctx.fillText("Governance", cx, cy + govRingRadius + 20);
 
       // --- Draw governance neural cluster along the ring ---
       {
