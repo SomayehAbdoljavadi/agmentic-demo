@@ -59,8 +59,8 @@ const AgentNetworkCanvas = () => {
 
   const buildLayout = useCallback((w: number, h: number) => {
     const cx = w * 0.5;
-    const cy = h * 0.48;
-    const ringRadius = Math.min(w, h) * 0.28;
+    const cy = h * 0.5;
+    const ringRadius = Math.min(w, h) * 0.3;
 
     const nodes: AgentNode[] = AGENT_LABELS.map((label, i) => {
       const angle = -Math.PI / 2 + (i / AGENT_LABELS.length) * Math.PI * 2;
