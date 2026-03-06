@@ -3,17 +3,25 @@ import { Link, useLocation } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useDemoAccess } from "@/contexts/DemoAccessContext";
 
 const navLinks = [
   { label: "Product", to: "/product" },
-  { label: "Demo", to: "/demo" },
-  
+  { label: "Demo", to: "/demo", gated: true },
   { label: "About", to: "/about" },
 ];
 
 const Navbar = () => {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { openDemoGate } = useDemoAccess();
+
+  const handleNavClick = (link: typeof navLinks[0], e: React.MouseEvent) => {
+    if (link.gated) {
+      e.preventDefault();
+      openDemoGate();
+    }
+  };
 
   return (
     <motion.nav
@@ -35,6 +43,7 @@ const Navbar = () => {
             <Link
               key={link.to}
               to={link.to}
+              onClick={(e) => handleNavClick(link, e)}
               className={`text-sm transition-colors ${
                 location.pathname === link.to
                   ? "text-foreground font-medium"
@@ -73,7 +82,10 @@ const Navbar = () => {
             <Link
               key={link.to}
               to={link.to}
-              onClick={() => setMobileOpen(false)}
+              onClick={(e) => {
+                handleNavClick(link, e);
+                setMobileOpen(false);
+              }}
               className="block text-sm text-muted-foreground hover:text-foreground py-2"
             >
               {link.label}

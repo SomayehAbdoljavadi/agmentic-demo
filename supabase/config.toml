@@ -1,0 +1,7 @@
+project_id = "rdhtsmvocrrcfhurweby"
+
+[functions.send-demo-code]
+verify_jwt = false
+
+[functions.verify-demo-code]
+verify_jwt = false
