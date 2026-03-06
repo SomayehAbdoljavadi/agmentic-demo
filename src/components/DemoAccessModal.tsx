@@ -85,20 +85,13 @@ const DemoAccessModal = () => {
     if (resendCooldown > 0) return;
     setError("");
     setLoading(true);
-    try {
-      const { data } = await supabase.functions.invoke("send-demo-code", {
-        body: { email },
-      });
-      if (data?.error) {
-        setError(data.error);
-      } else {
-        setResendCooldown(60);
-      }
-    } catch {
-      setError("Failed to resend code.");
-    } finally {
-      setLoading(false);
+    const result = await sendDemoCode(email);
+    if (result.success) {
+      setResendCooldown(60);
+    } else {
+      setError(result.error || "Failed to resend code.");
     }
+    setLoading(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
