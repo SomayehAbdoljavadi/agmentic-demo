@@ -11,11 +11,11 @@ interface Node {
 }
 
 const NODES: Node[] = [
-  { label: "Strategy", angle: 0, orbitSpeed: 0.08, orbitRadius: 0.34, color: "#60a5fa", glowColor: "rgba(96,165,250,0.5)", size: 28 },
-  { label: "Sales", angle: 72, orbitSpeed: 0.065, orbitRadius: 0.30, color: "#818cf8", glowColor: "rgba(129,140,248,0.5)", size: 26 },
-  { label: "Marketing", angle: 144, orbitSpeed: 0.055, orbitRadius: 0.37, color: "#22d3ee", glowColor: "rgba(34,211,238,0.5)", size: 26 },
-  { label: "Product", angle: 216, orbitSpeed: 0.07, orbitRadius: 0.32, color: "#a78bfa", glowColor: "rgba(167,139,250,0.5)", size: 27 },
-  { label: "Finance", angle: 288, orbitSpeed: 0.06, orbitRadius: 0.35, color: "#67e8f9", glowColor: "rgba(103,232,249,0.5)", size: 25 },
+  { label: "Strategy", angle: 0, orbitSpeed: 0.08, orbitRadius: 0.26, color: "#60a5fa", glowColor: "rgba(96,165,250,0.5)", size: 28 },
+  { label: "Sales", angle: 72, orbitSpeed: 0.065, orbitRadius: 0.26, color: "#818cf8", glowColor: "rgba(129,140,248,0.5)", size: 26 },
+  { label: "Marketing", angle: 144, orbitSpeed: 0.055, orbitRadius: 0.26, color: "#22d3ee", glowColor: "rgba(34,211,238,0.5)", size: 26 },
+  { label: "Product", angle: 216, orbitSpeed: 0.07, orbitRadius: 0.26, color: "#a78bfa", glowColor: "rgba(167,139,250,0.5)", size: 27 },
+  { label: "Finance", angle: 288, orbitSpeed: 0.06, orbitRadius: 0.26, color: "#67e8f9", glowColor: "rgba(103,232,249,0.5)", size: 25 },
 ];
 
 interface Particle {
