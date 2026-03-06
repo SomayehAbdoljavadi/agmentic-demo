@@ -102,13 +102,7 @@ const AICoreVisualization = () => {
 
       ctx.clearRect(0, 0, w, h);
 
-      // Background radial glow
-      const bgGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, minDim * 0.55);
-      bgGrad.addColorStop(0, "rgba(59,130,246,0.06)");
-      bgGrad.addColorStop(0.4, "rgba(99,102,241,0.03)");
-      bgGrad.addColorStop(1, "rgba(0,0,0,0)");
-      ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, w, h);
+      // No background — fully transparent canvas
 
       // Stars
       starsRef.current.forEach((star) => {
