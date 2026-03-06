@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useDemoAccess } from "@/contexts/DemoAccessContext";
 
 const CTASection = () => {
+  const { openDemoGate } = useDemoAccess();
+
   return (
     <section className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 gradient-mesh-strong" />
@@ -22,13 +25,13 @@ const CTASection = () => {
             Join leading organizations using Agmentic to align strategy and execution with AI-powered intelligence.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/contact"
+            <button
+              onClick={() => openDemoGate()}
               className="group inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-medium rounded-xl hover:opacity-90 transition-opacity text-sm glow-md"
             >
               Request a Demo
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </Link>
+            </button>
             <Link
               to="/contact"
               className="inline-flex items-center gap-2 px-8 py-4 glass-card text-foreground font-medium text-sm rounded-xl hover:bg-card/80 transition-all"
