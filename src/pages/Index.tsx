@@ -1,9 +1,5 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import HowItWorksSection from "@/components/HowItWorksSection";
-import AgentsSection from "@/components/AgentsSection";
-import AgentWorkflowSection from "@/components/AgentWorkflowSection";
-
 import DashboardSection from "@/components/DashboardSection";
 import DemoPreviewSection from "@/components/DemoPreviewSection";
 import TargetCustomersSection from "@/components/TargetCustomersSection";
@@ -14,10 +10,6 @@ import FullPageScroll from "@/components/FullPageScroll";
 
 const sectionLabels = [
   "Hero",
-  "How It Works",
-  "Agents",
-  "Workflow",
-  
   "Dashboard",
   "Demo",
   "Customers",
@@ -37,10 +29,6 @@ const Index = () => {
       <Navbar />
       <FullPageScroll sectionLabels={sectionLabels}>
         <HeroSection />
-        <SectionWrapper><HowItWorksSection /></SectionWrapper>
-        <SectionWrapper><AgentsSection /></SectionWrapper>
-        <SectionWrapper><AgentWorkflowSection /></SectionWrapper>
-        
         <SectionWrapper><DashboardSection /></SectionWrapper>
         <SectionWrapper><DemoPreviewSection /></SectionWrapper>
         <SectionWrapper><TargetCustomersSection /></SectionWrapper>
