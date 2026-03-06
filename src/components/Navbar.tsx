@@ -91,13 +91,12 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
-          <Link
-            to="/contact"
-            onClick={() => setMobileOpen(false)}
+          <button
+            onClick={() => { openDemoGate(); setMobileOpen(false); }}
             className="block text-sm font-medium text-primary py-2"
           >
             Request Demo
-          </Link>
+          </button>
         </motion.div>
       )}
     </motion.nav>
