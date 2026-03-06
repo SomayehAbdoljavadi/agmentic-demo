@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useDemoAccess } from "@/contexts/DemoAccessContext";
 
 const Footer = () => {
+  const { openDemoGate } = useDemoAccess();
+
   return (
     <footer className="border-t border-border/30 bg-card/30 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-6 py-16">
@@ -21,8 +24,12 @@ const Footer = () => {
             <h4 className="text-sm font-semibold mb-4">Platform</h4>
             <div className="space-y-2.5">
               <Link to="/product" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Product</Link>
-              
-              <Link to="/demo" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Demo</Link>
+              <button
+                onClick={openDemoGate}
+                className="block text-sm text-muted-foreground hover:text-foreground transition-colors text-left"
+              >
+                Demo
+              </button>
             </div>
           </div>
 
