@@ -57,12 +57,12 @@ const Navbar = () => {
 
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <Link
-            to="/contact"
+          <button
+            onClick={() => openDemoGate()}
             className="hidden md:inline-flex items-center px-5 py-2 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-opacity glow-sm"
           >
             Request Demo
-          </Link>
+          </button>
           <button
             className="md:hidden p-2"
             onClick={() => setMobileOpen(!mobileOpen)}
