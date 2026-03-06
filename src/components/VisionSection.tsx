@@ -36,9 +36,9 @@ const VisionSection = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="flex items-center justify-center h-[50vh] lg:h-[70vh]"
+          className="flex items-center justify-center h-[60vh] lg:h-[80vh]"
         >
-          <div className="w-full h-full max-w-[500px] max-h-[500px]">
+          <div className="w-full h-full max-w-[650px] max-h-[650px]">
             <AICoreVisualization />
           </div>
         </motion.div>
