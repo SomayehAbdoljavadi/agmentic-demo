@@ -53,22 +53,14 @@ const DemoAccessModal = () => {
     }
     setError("");
     setLoading(true);
-    try {
-      const { data, error: fnError } = await supabase.functions.invoke("send-demo-code", {
-        body: { email },
-      });
-      if (fnError) throw fnError;
-      if (data?.error) {
-        setError(data.error);
-      } else {
-        setStep("code");
-        setResendCooldown(60);
-      }
-    } catch {
-      setError("Failed to send code. Please try again.");
-    } finally {
-      setLoading(false);
+    const result = await sendDemoCode(email);
+    if (result.success) {
+      setStep("code");
+      setResendCooldown(60);
+    } else {
+      setError(result.error || "Failed to send code.");
     }
+    setLoading(false);
   };
 
   const handleVerifyCode = async () => {
