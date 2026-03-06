@@ -8,9 +8,22 @@ const VisionSection = () => {
       <div className="absolute inset-0 gradient-mesh-strong" />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center h-full">
-        {/* Left — Text */}
+        {/* Left — Canvas Visualization */}
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="flex items-center justify-center h-[50vh] lg:h-[70vh]"
+        >
+          <div className="w-full h-full max-w-[500px] max-h-[500px]">
+            <AICoreVisualization />
+          </div>
+        </motion.div>
+
+        {/* Right — Text */}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
@@ -28,19 +41,6 @@ const VisionSection = () => {
             validated by specialized AI, and aligned with strategic objectives — creating a new standard
             for how enterprises think, decide, and act.
           </p>
-        </motion.div>
-
-        {/* Right — Canvas Visualization */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          className="flex items-center justify-center h-[50vh] lg:h-[70vh]"
-        >
-          <div className="w-full h-full max-w-[500px] max-h-[500px]">
-            <AICoreVisualization />
-          </div>
         </motion.div>
       </div>
     </section>
