@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, AlertTriangle, TrendingUp, Megaphone, Package, DollarSign, Target } from "lucide-react";
+import { ArrowRight, CheckCircle2, AlertTriangle, TrendingUp, Megaphone, Package, DollarSign, Target, ShieldAlert } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -21,6 +22,15 @@ const agentReviews = [
 
 const Demo = () => {
   const [step, setStep] = useState(0);
+  const navigate = useNavigate();
+
+  // Guard: redirect if not verified
+  useEffect(() => {
+    const verified = sessionStorage.getItem("demo_verified");
+    if (verified !== "true") {
+      navigate("/", { replace: true });
+    }
+  }, [navigate]);
 
   return (
     <div className="min-h-screen bg-background">
