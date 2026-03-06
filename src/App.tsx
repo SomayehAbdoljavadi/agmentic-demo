@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import Index from "./pages/Index";
 import Product from "./pages/Product";
 import Demo from "./pages/Demo";
-import Technology from "./pages/Technology";
+
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
