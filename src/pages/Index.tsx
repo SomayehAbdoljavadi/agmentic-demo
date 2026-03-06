@@ -14,8 +14,6 @@ import FullPageScroll from "@/components/FullPageScroll";
 
 const sectionLabels = [
   "Hero",
-  "Problem",
-  "Solution",
   "How It Works",
   "Agents",
   "Workflow",
