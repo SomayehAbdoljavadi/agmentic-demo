@@ -30,11 +30,11 @@ const HeroSection = () => {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col items-start max-w-7xl"
         >
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold leading-[1.1] mb-4 tracking-tight text-left whitespace-nowrap">
+          <h1 className="text-lg md:text-xl lg:text-2xl font-display font-bold leading-[1.1] mb-2 tracking-tight text-left whitespace-nowrap">
             <span className="text-gradient-glow">AI-Augmented</span> Decision Making
           </h1>
 
-          <p className="text-[16px] text-muted-foreground leading-relaxed text-left italic whitespace-nowrap">
+          <p className="text-xs md:text-sm text-muted-foreground leading-relaxed text-left italic whitespace-nowrap">
             Transform fragmented company data into structured, explainable decisions powered by AI agents.
           </p>
         </motion.div>
