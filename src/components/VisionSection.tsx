@@ -5,7 +5,7 @@ const VisionSection = () => {
   return (
     <section className="h-screen w-full flex items-center relative overflow-hidden">
       {/* Deep dark background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(230,40%,4%)] via-[hsl(225,30%,5%)] to-[hsl(220,35%,3%)]" />
+      <div className="absolute inset-0 gradient-mesh-strong" />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center h-full">
         {/* Left — Text */}
