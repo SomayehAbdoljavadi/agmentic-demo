@@ -1,15 +1,38 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, CheckCircle2 } from "lucide-react";
+import { Send, CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { submitContactInquiry } from "@/services/contactInquiry";
 
 const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    setError("");
+    setLoading(true);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const result = await submitContactInquiry({
+      firstName: formData.get("firstName") as string,
+      lastName: formData.get("lastName") as string,
+      email: formData.get("email") as string,
+      company: formData.get("company") as string,
+      companySize: formData.get("companySize") as string,
+      message: formData.get("message") as string,
+    });
+
+    setLoading(false);
+    if (result.success) {
+      setSubmitted(true);
+    } else {
+      setError(result.error || "Something went wrong.");
+    }
   };
 
   return (
@@ -25,10 +48,10 @@ const Contact = () => {
           >
             <p className="text-xs uppercase tracking-[0.2em] text-primary font-medium mb-4">Contact</p>
             <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">
-              Request a Demo
+              Contact Sales
             </h1>
             <p className="text-muted-foreground max-w-lg mx-auto">
-              See how Agmentic can transform your organization's decision-making. Fill out the form and we'll schedule a personalized walkthrough.
+              Interested in Agmentic? Fill out the form and our sales team will get back to you within 24 hours.
             </p>
           </motion.div>
 
@@ -40,7 +63,7 @@ const Contact = () => {
             >
               <CheckCircle2 className="w-12 h-12 text-primary mx-auto mb-4" />
               <h3 className="text-2xl font-display font-semibold mb-2">Thank You!</h3>
-              <p className="text-muted-foreground">We've received your request and will be in touch within 24 hours.</p>
+              <p className="text-muted-foreground">We've received your inquiry and will be in touch within 24 hours.</p>
             </motion.div>
           ) : (
             <motion.form
@@ -54,6 +77,7 @@ const Contact = () => {
                 <div>
                   <label className="block text-sm font-medium mb-2">First Name</label>
                   <input
+                    name="firstName"
                     type="text"
                     required
                     className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-shadow"
@@ -63,6 +87,7 @@ const Contact = () => {
                 <div>
                   <label className="block text-sm font-medium mb-2">Last Name</label>
                   <input
+                    name="lastName"
                     type="text"
                     required
                     className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-shadow"
@@ -74,6 +99,7 @@ const Contact = () => {
               <div>
                 <label className="block text-sm font-medium mb-2">Work Email</label>
                 <input
+                  name="email"
                   type="email"
                   required
                   className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-shadow"
@@ -84,8 +110,8 @@ const Contact = () => {
               <div>
                 <label className="block text-sm font-medium mb-2">Company</label>
                 <input
+                  name="company"
                   type="text"
-                  required
                   className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-shadow"
                   placeholder="Acme Corp"
                 />
@@ -93,7 +119,10 @@ const Contact = () => {
 
               <div>
                 <label className="block text-sm font-medium mb-2">Company Size</label>
-                <select className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-shadow">
+                <select
+                  name="companySize"
+                  className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-shadow"
+                >
                   <option value="">Select...</option>
                   <option>1–50 employees</option>
                   <option>51–200 employees</option>
@@ -105,17 +134,36 @@ const Contact = () => {
               <div>
                 <label className="block text-sm font-medium mb-2">Tell us about your needs</label>
                 <textarea
+                  name="message"
                   rows={4}
                   className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-shadow resize-none"
                   placeholder="What challenges are you facing with decision-making across departments?"
                 />
               </div>
 
+              {error && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex items-center gap-1.5 text-sm text-destructive"
+                >
+                  <AlertCircle className="w-4 h-4" />
+                  {error}
+                </motion.p>
+              )}
+
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-primary-foreground font-medium rounded-lg hover:opacity-90 transition-opacity"
+                disabled={loading}
+                className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-primary-foreground font-medium rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
               >
-                Request Demo <Send className="w-4 h-4" />
+                {loading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <>
+                    Send to Sales <Send className="w-4 h-4" />
+                  </>
+                )}
               </button>
             </motion.form>
           )}
