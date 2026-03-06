@@ -70,23 +70,15 @@ const DemoAccessModal = () => {
     }
     setError("");
     setLoading(true);
-    try {
-      const { data, error: fnError } = await supabase.functions.invoke("verify-demo-code", {
-        body: { email, code },
-      });
-      if (fnError) throw fnError;
-      if (data?.error) {
-        setError(data.error);
-      } else if (data?.verified) {
-        setStep("success");
-        markVerified();
-        setTimeout(() => navigate("/demo"), 800);
-      }
-    } catch {
-      setError("Verification failed. Please try again.");
-    } finally {
-      setLoading(false);
+    const result = await verifyDemoCode(email, code);
+    if (result.verified) {
+      setStep("success");
+      markVerified();
+      setTimeout(() => navigate("/demo"), 800);
+    } else {
+      setError(result.error || "Verification failed.");
     }
+    setLoading(false);
   };
 
   const handleResend = async () => {
