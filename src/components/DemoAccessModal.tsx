@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowRight, Loader2, CheckCircle2, AlertCircle, RotateCcw } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { sendDemoCode, verifyDemoCode } from "@/services/demoVerification";
 import { useDemoAccess } from "@/contexts/DemoAccessContext";
 import { useNavigate } from "react-router-dom";
 
@@ -53,22 +53,14 @@ const DemoAccessModal = () => {
     }
     setError("");
     setLoading(true);
-    try {
-      const { data, error: fnError } = await supabase.functions.invoke("send-demo-code", {
-        body: { email },
-      });
-      if (fnError) throw fnError;
-      if (data?.error) {
-        setError(data.error);
-      } else {
-        setStep("code");
-        setResendCooldown(60);
-      }
-    } catch {
-      setError("Failed to send code. Please try again.");
-    } finally {
-      setLoading(false);
+    const result = await sendDemoCode(email);
+    if (result.success) {
+      setStep("code");
+      setResendCooldown(60);
+    } else {
+      setError(result.error || "Failed to send code.");
     }
+    setLoading(false);
   };
 
   const handleVerifyCode = async () => {
@@ -78,43 +70,28 @@ const DemoAccessModal = () => {
     }
     setError("");
     setLoading(true);
-    try {
-      const { data, error: fnError } = await supabase.functions.invoke("verify-demo-code", {
-        body: { email, code },
-      });
-      if (fnError) throw fnError;
-      if (data?.error) {
-        setError(data.error);
-      } else if (data?.verified) {
-        setStep("success");
-        markVerified();
-        setTimeout(() => navigate("/demo"), 800);
-      }
-    } catch {
-      setError("Verification failed. Please try again.");
-    } finally {
-      setLoading(false);
+    const result = await verifyDemoCode(email, code);
+    if (result.verified) {
+      setStep("success");
+      markVerified();
+      setTimeout(() => navigate("/demo"), 800);
+    } else {
+      setError(result.error || "Verification failed.");
     }
+    setLoading(false);
   };
 
   const handleResend = async () => {
     if (resendCooldown > 0) return;
     setError("");
     setLoading(true);
-    try {
-      const { data } = await supabase.functions.invoke("send-demo-code", {
-        body: { email },
-      });
-      if (data?.error) {
-        setError(data.error);
-      } else {
-        setResendCooldown(60);
-      }
-    } catch {
-      setError("Failed to resend code.");
-    } finally {
-      setLoading(false);
+    const result = await sendDemoCode(email);
+    if (result.success) {
+      setResendCooldown(60);
+    } else {
+      setError(result.error || "Failed to resend code.");
     }
+    setLoading(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
