@@ -37,8 +37,6 @@ const Index = () => {
       <Navbar />
       <FullPageScroll sectionLabels={sectionLabels}>
         <HeroSection />
-        <SectionWrapper><ProblemSection /></SectionWrapper>
-        <SectionWrapper><SolutionSection /></SectionWrapper>
         <SectionWrapper><HowItWorksSection /></SectionWrapper>
         <SectionWrapper><AgentsSection /></SectionWrapper>
         <SectionWrapper><AgentWorkflowSection /></SectionWrapper>
