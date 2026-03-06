@@ -23,7 +23,7 @@ const Index = () => {
       <Navbar />
       <FullPageScroll sectionLabels={sectionLabels}>
         <HeroSection />
-        <SectionWrapper><VisionSection /></SectionWrapper>
+        <VisionSection />
         <SectionWrapper>
           <CTASection />
           <Footer />
