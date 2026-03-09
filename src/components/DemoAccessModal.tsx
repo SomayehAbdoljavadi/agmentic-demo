@@ -51,10 +51,9 @@ const DemoAccessModal = () => {
     setError("");
     setLoading(true);
 
-    // Try admin bypass first
-    const adminResult = await verifyAdminDemo(email, "__probe__");
-    // If the function returns "Invalid credentials" it means the email is recognized as admin
-    if (adminResult.error === "Invalid credentials") {
+    // Try admin bypass first — probe returns { isAdmin: true/false }
+    const probeResult = await probeAdminEmail(email);
+    if (probeResult.isAdmin) {
       setStep("adminPassword");
       setLoading(false);
       return;
