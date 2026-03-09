@@ -4,6 +4,7 @@ import ThemeToggle from "./ThemeToggle";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useDemoAccess } from "@/contexts/DemoAccessContext";
+import logoAndName from "@/assets/logo_and_name.png";
 
 const navLinks = [
   { label: "Product", to: "/product" },
@@ -31,11 +32,8 @@ const Navbar = () => {
       className="fixed top-0 left-0 right-0 z-50 bg-background/60 backdrop-blur-2xl border-b border-border/30"
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-        <Link to="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center glow-sm">
-            <span className="text-primary-foreground font-display font-bold text-sm">A</span>
-          </div>
-          <span className="text-lg font-display font-semibold text-foreground tracking-tight">Agmentic</span>
+        <Link to="/" className="flex items-center">
+          <img src={logoAndName} alt="Agmentic" className="h-8" />
         </Link>
 
         <div className="hidden md:flex items-center gap-8">

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useDemoAccess } from "@/contexts/DemoAccessContext";
+import logoAndName from "@/assets/logo_and_name.png";
 
 const Footer = () => {
   const { openDemoGate } = useDemoAccess();
@@ -9,11 +10,8 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-4 gap-10 mb-12">
           <div className="md:col-span-1">
-            <Link to="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-display font-bold text-sm">A</span>
-              </div>
-              <span className="text-lg font-display font-semibold tracking-tight">Agmentic</span>
+            <Link to="/" className="flex items-center mb-4">
+              <img src={logoAndName} alt="Agmentic" className="h-8" />
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
               The Operating System for AI-Augmented Decision Making.
