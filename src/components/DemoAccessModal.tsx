@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowRight, Loader2, CheckCircle2, AlertCircle, RotateCcw, ShieldCheck } from "lucide-react";
-import { sendDemoCode, verifyDemoCode, verifyAdminDemo } from "@/services/demoVerification";
+import { sendDemoCode, verifyDemoCode, verifyAdminDemo, probeAdminEmail } from "@/services/demoVerification";
 import { useDemoAccess } from "@/contexts/DemoAccessContext";
 import { useNavigate } from "react-router-dom";
 
@@ -51,10 +51,9 @@ const DemoAccessModal = () => {
     setError("");
     setLoading(true);
 
-    // Try admin bypass first
-    const adminResult = await verifyAdminDemo(email, "__probe__");
-    // If the function returns "Invalid credentials" it means the email is recognized as admin
-    if (adminResult.error === "Invalid credentials") {
+    // Try admin bypass first — probe returns { isAdmin: true/false }
+    const probeResult = await probeAdminEmail(email);
+    if (probeResult.isAdmin) {
       setStep("adminPassword");
       setLoading(false);
       return;

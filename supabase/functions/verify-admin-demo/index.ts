@@ -24,20 +24,37 @@ Deno.serve(async (req) => {
     }
 
     const { email, password } = await req.json();
-    const normalizedEmail = email?.toLowerCase?.();
+    const normalizedEmail = email?.trim()?.toLowerCase();
 
-    if (!normalizedEmail || !password) {
+    if (!normalizedEmail) {
       return new Response(
-        JSON.stringify({ error: "Email and password required" }),
+        JSON.stringify({ error: "Email is required" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
     const expectedPassword = ADMIN_ACCOUNTS[normalizedEmail];
-    if (!expectedPassword || password !== expectedPassword) {
+    const isAdmin = !!expectedPassword;
+
+    // Probe mode: just check if email is admin
+    if (password === "__probe__") {
+      return new Response(
+        JSON.stringify({ isAdmin }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (!password) {
+      return new Response(
+        JSON.stringify({ error: "Password is required" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (!isAdmin || password !== expectedPassword) {
       return new Response(
         JSON.stringify({ verified: false, error: "Invalid credentials" }),
-        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
