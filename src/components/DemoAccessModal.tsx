@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowRight, Loader2, CheckCircle2, AlertCircle, RotateCcw, ShieldCheck } from "lucide-react";
-import { sendDemoCode, verifyDemoCode, verifyAdminDemo } from "@/services/demoVerification";
+import { sendDemoCode, verifyDemoCode, verifyAdminDemo, probeAdminEmail } from "@/services/demoVerification";
 import { useDemoAccess } from "@/contexts/DemoAccessContext";
 import { useNavigate } from "react-router-dom";
 
