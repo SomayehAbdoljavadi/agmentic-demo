@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useDemoAccess } from "@/contexts/DemoAccessContext";
+import logoAndName from "@/assets/logo_and_name.png";
 
 const Footer = () => {
   const { openDemoGate } = useDemoAccess();
