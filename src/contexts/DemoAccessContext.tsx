@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useCallback, ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
 
 interface DemoAccessContextType {
   isVerified: boolean;
@@ -7,6 +6,7 @@ interface DemoAccessContextType {
   isModalOpen: boolean;
   closeModal: () => void;
   markVerified: () => void;
+  revokeAccess: () => void;
 }
 
 const DemoAccessContext = createContext<DemoAccessContextType | null>(null);
@@ -19,15 +19,10 @@ export const useDemoAccess = () => {
 
 export const DemoAccessProvider = ({ children }: { children: ReactNode }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isVerified, setIsVerified] = useState(() => {
-    // Check session storage for existing verification
-    const verified = sessionStorage.getItem("demo_verified");
-    return verified === "true";
-  });
+  const [isVerified, setIsVerified] = useState(false);
 
   const openDemoGate = useCallback(() => {
     if (isVerified) {
-      // Already verified in this session — navigate directly
       window.location.href = "/demo";
     } else {
       setIsModalOpen(true);
@@ -38,12 +33,15 @@ export const DemoAccessProvider = ({ children }: { children: ReactNode }) => {
 
   const markVerified = useCallback(() => {
     setIsVerified(true);
-    sessionStorage.setItem("demo_verified", "true");
     setIsModalOpen(false);
   }, []);
 
+  const revokeAccess = useCallback(() => {
+    setIsVerified(false);
+  }, []);
+
   return (
-    <DemoAccessContext.Provider value={{ isVerified, openDemoGate, isModalOpen, closeModal, markVerified }}>
+    <DemoAccessContext.Provider value={{ isVerified, openDemoGate, isModalOpen, closeModal, markVerified, revokeAccess }}>
       {children}
     </DemoAccessContext.Provider>
   );
