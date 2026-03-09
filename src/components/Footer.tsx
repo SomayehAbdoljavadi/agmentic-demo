@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-10 mb-12">
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center mb-4">
-              <img src={logoAndName} alt="Agmentic" className="h-8" />
+              <img src={logoAndName} alt="Agmentic" className="h-12" />
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
               The Operating System for AI-Augmented Decision Making.
