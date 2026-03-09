@@ -83,7 +83,7 @@ Deno.serve(async (req) => {
           Authorization: `Bearer ${RESEND_API_KEY}`,
         },
         body: JSON.stringify({
-          from: "Agmentic <noreply@agmentic.com>",
+          from: "Agmentic <onboarding@resend.dev>",
           to: [email],
           subject: "Your Agmentic Demo Access Code",
           html: `
