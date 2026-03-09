@@ -39,9 +39,6 @@ const Demo = () => {
       revokeAccess();
     };
   }, [revokeAccess]);
-      navigate("/", { replace: true });
-    }
-  }, [navigate]);
 
   return (
     <div className="min-h-screen bg-background">
