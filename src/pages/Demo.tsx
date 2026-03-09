@@ -24,11 +24,21 @@ const agentReviews = [
 const Demo = () => {
   const [step, setStep] = useState(0);
   const navigate = useNavigate();
+  const { isVerified, revokeAccess } = useDemoAccess();
 
   // Guard: redirect if not verified
   useEffect(() => {
-    const verified = sessionStorage.getItem("demo_verified");
-    if (verified !== "true") {
+    if (!isVerified) {
+      navigate("/", { replace: true });
+    }
+  }, [isVerified, navigate]);
+
+  // Revoke access when leaving the demo page
+  useEffect(() => {
+    return () => {
+      revokeAccess();
+    };
+  }, [revokeAccess]);
       navigate("/", { replace: true });
     }
   }, [navigate]);
