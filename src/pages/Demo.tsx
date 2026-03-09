@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle2, AlertTriangle, TrendingUp, Megaphone, Package
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useDemoAccess } from "@/contexts/DemoAccessContext";
 
 const demoSteps = [
   { label: "Data Ingestion", key: "ingest" },
