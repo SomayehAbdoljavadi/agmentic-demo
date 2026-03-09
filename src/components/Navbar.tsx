@@ -4,6 +4,7 @@ import ThemeToggle from "./ThemeToggle";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useDemoAccess } from "@/contexts/DemoAccessContext";
+import logoAndName from "@/assets/logo_and_name.png";
 
 const navLinks = [
   { label: "Product", to: "/product" },
