@@ -10,7 +10,7 @@ type Message = {
   content: string;
 };
 
-const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
+const CHAT_URL = "http://127.0.0.1:8000/api/chat";
 
 const INITIAL_MESSAGES: Message[] = [
   {
