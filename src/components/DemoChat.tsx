@@ -38,10 +38,10 @@ const INITIAL_MESSAGES: Message[] = [
 ];
 
 const SAMPLE_QUESTIONS = [
-  "Who are the five best sponsors for the upcoming event?",
+  "Who should I talk to next?",
   "Which companies matter most?",
   "What topics should I focus on?",
-  "Tell me about company Hyper Media",
+  "Which attendees are most relevant for partnership building?",
 ];
 
 const TypingIndicator = () => (
