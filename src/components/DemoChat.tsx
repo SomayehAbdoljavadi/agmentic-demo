@@ -37,6 +37,13 @@ const INITIAL_MESSAGES: Message[] = [
   },
 ];
 
+const SAMPLE_QUESTIONS = [
+  "Who are the five best sponsors for the upcoming event?",
+  "Which companies matter most?",
+  "What topics should I focus on?",
+  "Tell me about company Hyper Media",
+];
+
 const TypingIndicator = () => (
   <div className="flex items-center gap-1.5 px-4 py-3">
     {[0, 1, 2].map((i) => (
@@ -55,6 +62,7 @@ const DemoChat = () => {
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -68,14 +76,14 @@ const DemoChat = () => {
     scrollToBottom();
   }, [messages, isTyping, scrollToBottom]);
 
-  const sendMessage = async () => {
-    const trimmed = input.trim();
-    if (!trimmed || isStreaming) return;
+  const sendMessageWithText = async (text: string) => {
+    if (!text.trim() || isStreaming) return;
+    setShowSuggestions(false);
 
     const userMsg: Message = {
       id: `user-${Date.now()}`,
       role: "user",
-      content: trimmed,
+      content: text.trim(),
     };
 
     setMessages((prev) => [...prev, userMsg]);
@@ -83,7 +91,6 @@ const DemoChat = () => {
     setIsStreaming(true);
     setIsTyping(true);
 
-    // Build conversation history for API
     const apiMessages = [...messages, userMsg].map((m) => ({
       role: m.role,
       content: m.content,
@@ -108,7 +115,6 @@ const DemoChat = () => {
       const assistantId = `assistant-${Date.now()}`;
       let assistantContent = "";
 
-      // Add empty assistant message
       setMessages((prev) => [
         ...prev,
         { id: assistantId, role: "assistant", content: "" },
@@ -154,7 +160,6 @@ const DemoChat = () => {
         }
       }
 
-      // Final flush
       if (textBuffer.trim()) {
         for (let raw of textBuffer.split("\n")) {
           if (!raw) continue;
@@ -183,7 +188,6 @@ const DemoChat = () => {
     } catch (error) {
       console.error("Chat error:", error);
       setIsTyping(false);
-      // Fallback response
       setMessages((prev) => [
         ...prev,
         {
@@ -198,6 +202,15 @@ const DemoChat = () => {
       setIsTyping(false);
     }
   };
+
+  const sendMessage = async () => {
+    await sendMessageWithText(input);
+  };
+
+  const handleSuggestionClick = (question: string) => {
+    sendMessageWithText(question);
+  };
+
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -284,6 +297,27 @@ const DemoChat = () => {
           </motion.div>
         )}
       </div>
+
+      {/* Sample Questions */}
+      {showSuggestions && !isStreaming && (
+        <div className="px-4 md:px-6 py-3 border-t border-border/40">
+          <p className="text-xs text-muted-foreground mb-2">Try asking:</p>
+          <div className="flex flex-wrap gap-2">
+            {SAMPLE_QUESTIONS.map((question, i) => (
+              <motion.button
+                key={i}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.08 }}
+                onClick={() => handleSuggestionClick(question)}
+                className="text-xs px-3 py-2 rounded-xl bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-colors text-left"
+              >
+                {question}
+              </motion.button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Input */}
       <div className="px-4 md:px-6 py-4 border-t border-border/40">
