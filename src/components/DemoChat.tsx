@@ -10,7 +10,7 @@ type Message = {
   content: string;
 };
 
-const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
+const CHAT_URL = "http://127.0.0.1:8000/api/chat";
 
 const INITIAL_MESSAGES: Message[] = [
   {
@@ -38,10 +38,10 @@ const INITIAL_MESSAGES: Message[] = [
 ];
 
 const SAMPLE_QUESTIONS = [
-  "Who are the five best sponsors for the upcoming event?",
+  "Who should I talk to next?",
   "Which companies matter most?",
   "What topics should I focus on?",
-  "Tell me about company Hyper Media",
+  "Which attendees are most relevant for partnership building?",
 ];
 
 const TypingIndicator = () => (
@@ -91,100 +91,28 @@ const DemoChat = () => {
     setIsStreaming(true);
     setIsTyping(true);
 
-    const apiMessages = [...messages, userMsg].map((m) => ({
-      role: m.role,
-      content: m.content,
-    }));
-
     try {
       const resp = await fetch(CHAT_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-        },
-        body: JSON.stringify({ messages: apiMessages }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: text.trim() }),
       });
 
-      if (!resp.ok || !resp.body) {
+      if (!resp.ok) {
         throw new Error(`Request failed: ${resp.status}`);
       }
 
+      const data = await resp.json();
       setIsTyping(false);
-
-      const assistantId = `assistant-${Date.now()}`;
-      let assistantContent = "";
 
       setMessages((prev) => [
         ...prev,
-        { id: assistantId, role: "assistant", content: "" },
+        {
+          id: `assistant-${Date.now()}`,
+          role: "assistant",
+          content: data.answer || "No response received.",
+        },
       ]);
-
-      const reader = resp.body.getReader();
-      const decoder = new TextDecoder();
-      let textBuffer = "";
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        textBuffer += decoder.decode(value, { stream: true });
-
-        let newlineIndex: number;
-        while ((newlineIndex = textBuffer.indexOf("\n")) !== -1) {
-          let line = textBuffer.slice(0, newlineIndex);
-          textBuffer = textBuffer.slice(newlineIndex + 1);
-
-          if (line.endsWith("\r")) line = line.slice(0, -1);
-          if (line.startsWith(":") || line.trim() === "") continue;
-          if (!line.startsWith("data: ")) continue;
-
-          const jsonStr = line.slice(6).trim();
-          if (jsonStr === "[DONE]") break;
-
-          try {
-            const parsed = JSON.parse(jsonStr);
-            const content = parsed.choices?.[0]?.delta?.content;
-            if (content) {
-              assistantContent += content;
-              const snapshot = assistantContent;
-              setMessages((prev) =>
-                prev.map((m) =>
-                  m.id === assistantId ? { ...m, content: snapshot } : m
-                )
-              );
-            }
-          } catch {
-            textBuffer = line + "\n" + textBuffer;
-            break;
-          }
-        }
-      }
-
-      if (textBuffer.trim()) {
-        for (let raw of textBuffer.split("\n")) {
-          if (!raw) continue;
-          if (raw.endsWith("\r")) raw = raw.slice(0, -1);
-          if (raw.startsWith(":") || raw.trim() === "") continue;
-          if (!raw.startsWith("data: ")) continue;
-          const jsonStr = raw.slice(6).trim();
-          if (jsonStr === "[DONE]") continue;
-          try {
-            const parsed = JSON.parse(jsonStr);
-            const content = parsed.choices?.[0]?.delta?.content;
-            if (content) {
-              assistantContent += content;
-              const snapshot = assistantContent;
-              setMessages((prev) =>
-                prev.map((m) =>
-                  m.id === assistantId ? { ...m, content: snapshot } : m
-                )
-              );
-            }
-          } catch {
-            /* ignore */
-          }
-        }
-      }
     } catch (error) {
       console.error("Chat error:", error);
       setIsTyping(false);
@@ -193,8 +121,7 @@ const DemoChat = () => {
         {
           id: `fallback-${Date.now()}`,
           role: "assistant",
-          content:
-            "I'm experiencing a brief connectivity issue. As Agmentic, I'm designed to analyze your business data across Sales, Marketing, Product, Finance, and Strategy dimensions. Please try your question again in a moment.",
+          content: "Sorry, I could not reach the backend.",
         },
       ]);
     } finally {
