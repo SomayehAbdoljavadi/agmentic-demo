@@ -298,6 +298,27 @@ const DemoChat = () => {
         )}
       </div>
 
+      {/* Sample Questions */}
+      {showSuggestions && !isStreaming && (
+        <div className="px-4 md:px-6 py-3 border-t border-border/40">
+          <p className="text-xs text-muted-foreground mb-2">Try asking:</p>
+          <div className="flex flex-wrap gap-2">
+            {SAMPLE_QUESTIONS.map((question, i) => (
+              <motion.button
+                key={i}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.08 }}
+                onClick={() => handleSuggestionClick(question)}
+                className="text-xs px-3 py-2 rounded-xl bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-colors text-left"
+              >
+                {question}
+              </motion.button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Input */}
       <div className="px-4 md:px-6 py-4 border-t border-border/40">
         <div className="flex items-end gap-3 bg-card border border-border/60 rounded-2xl px-4 py-3">
