@@ -14,7 +14,7 @@ const Footer = () => {
               <img src={logoAndName} alt="Agmentic" className="h-12" />
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              The Operating System for AI-Augmented Decision Making.
+              Mindshift from now to the Agmentic world.
             </p>
           </div>
 
