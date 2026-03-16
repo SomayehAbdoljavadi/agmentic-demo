@@ -2,56 +2,40 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 const shifts = [
-  { from: "Apps", to: "Agents", description: "Software that acts, not just displays." },
-  { from: "Data", to: "Brain", description: "Intelligence that thinks, not just stores." },
-  { from: "Dashboards", to: "Decisions", description: "Outcomes that matter, not charts that don't." },
-  { from: "Search", to: "Understanding", description: "Context that connects, not links that scatter." },
-  { from: "Tools", to: "Partners", description: "AI that collaborates, not just assists." },
+  { from: "App", to: "Agent" },
+  { from: "Data", to: "Brain" },
+  { from: "Dashboard", to: "Decision" },
+  { from: "Search", to: "Understanding" },
+  { from: "Tool", to: "Partner" },
 ];
 
 const MindshiftSection = () => {
   return (
-    <section className="py-32 md:py-40 px-6 relative overflow-hidden">
-      <div className="absolute inset-0 gradient-mesh opacity-50" />
-
-      <div className="relative z-10 max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+    <section className="py-24 md:py-32 px-6 relative">
+      <div className="max-w-3xl mx-auto text-center">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-20"
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-muted-foreground text-base md:text-lg mb-16 max-w-xl mx-auto"
         >
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold leading-tight mb-6">
-            The world is shifting.
-          </h2>
-          <p className="text-muted-foreground text-base md:text-lg max-w-xl mx-auto">
-            Every assumption about how we build, decide, and operate is being rewritten.
-          </p>
-        </motion.div>
+          We believe the future isn't about better apps — it's about a fundamental shift in how AI works with us.
+        </motion.p>
 
-        <div className="space-y-6 md:space-y-8">
+        <div className="flex flex-wrap justify-center gap-4 md:gap-6">
           {shifts.map((shift, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="glass-card p-6 md:p-8 flex flex-col md:flex-row items-center gap-4 md:gap-8"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+              className="flex items-center gap-3 glass-card px-5 py-3"
             >
-              <div className="flex items-center gap-4 md:gap-6 shrink-0">
-                <span className="text-xl md:text-2xl font-display font-bold text-muted-foreground line-through decoration-muted-foreground/40">
-                  {shift.from}
-                </span>
-                <ArrowRight className="w-5 h-5 text-primary shrink-0" />
-                <span className="text-xl md:text-2xl font-display font-bold text-gradient-glow">
-                  {shift.to}
-                </span>
-              </div>
-              <p className="text-muted-foreground text-sm md:text-base md:ml-auto text-center md:text-right">
-                {shift.description}
-              </p>
+              <span className="text-sm text-muted-foreground line-through">{shift.from}</span>
+              <ArrowRight className="w-3.5 h-3.5 text-primary" />
+              <span className="text-sm font-semibold text-gradient-glow">{shift.to}</span>
             </motion.div>
           ))}
         </div>
