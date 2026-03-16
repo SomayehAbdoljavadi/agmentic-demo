@@ -15,11 +15,8 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { openDemoGate } = useDemoAccess();
 
-  const handleNavClick = (link: typeof navLinks[0], e: React.MouseEvent) => {
-    if (link.gated) {
-      e.preventDefault();
-      openDemoGate();
-    }
+  const handleNavClick = (_link: typeof navLinks[0], _e: React.MouseEvent) => {
+    // standard navigation
   };
 
   return (
