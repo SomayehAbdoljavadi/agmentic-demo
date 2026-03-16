@@ -5,8 +5,7 @@ const shifts = [
   { from: "App", to: "Agent" },
   { from: "Data", to: "Brain" },
   { from: "Dashboard", to: "Decision" },
-  { from: "Search", to: "Understanding" },
-  { from: "Tool", to: "Partner" },
+  { from: "Interface", to: "Browsers" },
 ];
 
 const MindshiftSection = () => {
