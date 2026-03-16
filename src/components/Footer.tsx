@@ -43,7 +43,6 @@ const Footer = () => {
             <h4 className="text-sm font-semibold mb-4">Connect</h4>
             <div className="space-y-2.5">
               <a href="#" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">LinkedIn</a>
-              <a href="#" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Twitter</a>
             </div>
           </div>
         </div>
