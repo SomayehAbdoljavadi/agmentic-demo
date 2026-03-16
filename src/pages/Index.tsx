@@ -1,34 +1,23 @@
 import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
-import VisionSection from "@/components/VisionSection";
-import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
-import FullPageScroll from "@/components/FullPageScroll";
-
-const sectionLabels = [
-  "Hero",
-  "Vision",
-  "Contact",
-];
-
-const SectionWrapper = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <div className={`min-h-screen flex flex-col justify-center bg-background ${className}`}>
-    {children}
-  </div>
-);
+import HeroNarrative from "@/components/HeroNarrative";
+import MindshiftSection from "@/components/MindshiftSection";
+import SocietySection from "@/components/SocietySection";
+import LabSection from "@/components/LabSection";
+import ProductsSection from "@/components/ProductsSection";
+import CTASection from "@/components/CTASection";
 
 const Index = () => {
   return (
     <div className="bg-background">
       <Navbar />
-      <FullPageScroll sectionLabels={sectionLabels}>
-        <HeroSection />
-        <VisionSection />
-        <SectionWrapper>
-          <CTASection />
-          <Footer />
-        </SectionWrapper>
-      </FullPageScroll>
+      <HeroNarrative />
+      <MindshiftSection />
+      <SocietySection />
+      <LabSection />
+      <ProductsSection />
+      <CTASection />
+      <Footer />
     </div>
   );
 };

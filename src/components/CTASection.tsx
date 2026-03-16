@@ -18,11 +18,11 @@ const CTASection = () => {
           transition={{ duration: 0.7 }}
         >
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold mb-6 leading-tight">
-            Ready to Transform Your{" "}
-            <span className="text-gradient-primary">Decision Making</span>?
+            Join the{" "}
+            <span className="text-gradient-primary">Mindshift</span>
           </h2>
           <p className="text-muted-foreground text-base md:text-lg mb-12 max-w-xl mx-auto">
-            Join leading organizations using Agmentic to align strategy and execution with AI-powered intelligence.
+            Be part of a society and lab that's building the future of AI — one decision at a time.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button

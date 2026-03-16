@@ -7,9 +7,9 @@ import { useDemoAccess } from "@/contexts/DemoAccessContext";
 import logoAndName from "@/assets/logo_and_name.png";
 
 const navLinks = [
-  { label: "Product", to: "/product" },
+  { label: "Society", to: "/about" },
+  { label: "Lab", to: "/product" },
   { label: "Demo", to: "/demo", gated: true },
-  { label: "About", to: "/about" },
 ];
 
 const Navbar = () => {
