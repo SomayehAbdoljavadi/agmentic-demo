@@ -14,7 +14,7 @@ const Footer = () => {
               <img src={logoAndName} alt="Agmentic" className="h-12" />
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Mindshift from now to the Agmentic world.
+              The Operating System for AI-Augmented Decision Making.
             </p>
           </div>
 
@@ -43,6 +43,7 @@ const Footer = () => {
             <h4 className="text-sm font-semibold mb-4">Connect</h4>
             <div className="space-y-2.5">
               <a href="#" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">LinkedIn</a>
+              <a href="#" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Twitter</a>
             </div>
           </div>
         </div>

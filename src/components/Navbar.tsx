@@ -7,7 +7,9 @@ import { useDemoAccess } from "@/contexts/DemoAccessContext";
 import logoAndName from "@/assets/logo_and_name.png";
 
 const navLinks = [
-  { label: "Contact", to: "/contact" },
+  { label: "Product", to: "/product" },
+  { label: "Demo", to: "/demo", gated: true },
+  { label: "About", to: "/about" },
 ];
 
 const Navbar = () => {
@@ -15,8 +17,11 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { openDemoGate } = useDemoAccess();
 
-  const handleNavClick = (_link: typeof navLinks[0], _e: React.MouseEvent) => {
-    // standard navigation
+  const handleNavClick = (link: typeof navLinks[0], e: React.MouseEvent) => {
+    if (link.gated) {
+      e.preventDefault();
+      openDemoGate();
+    }
   };
 
   return (
